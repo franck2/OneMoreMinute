@@ -22,21 +22,7 @@ public class Trajet{
 	private String nom_arrivee;
 	private String code_arrivee;
 	private String detail_Trajet;
-	/*
-	 * vrai si l'utilisateur veut arriver avant une certaine heure
-	 * faux si il veut partir après une certaine heure
-	 */
-	private boolean handicape;
-	
-	public boolean isHandicape() {
-		return handicape;
-	}
-
-	public void setHandicape(boolean handicape) {
-		this.handicape = handicape;
-	}
-
-
+	private String transport;
 
 	public String getDetail_Trajet() {
 		return detail_Trajet;
@@ -53,14 +39,45 @@ public class Trajet{
 	public Trajet(String user){
 		this.nom_depart = "Arret, rue, ...";
 		this.code_depart = null;
-		
+		this.transport = null;
 		this.nom_arrivee = "Arret, rue, ...";
 		this.code_arrivee = null;
 		this.detail_Trajet="";
-		this.handicape = false;
 		this.id=user;
 	}
 	
+	public String getHeure_depart() {
+		return heure_depart;
+	}
+
+	public void setHeure_depart(String heure_depart) {
+		this.heure_depart = heure_depart;
+	}
+
+	public String getHeure_arrivee() {
+		return heure_arrivee;
+	}
+
+	public void setHeure_arrivee(String heure_arrivee) {
+		this.heure_arrivee = heure_arrivee;
+	}
+
+	public String getTransport() {
+		return transport;
+	}
+
+	public void setTransport(String transport) {
+		this.transport = transport;
+	}
+
+	public void setNom_depart(String nom_depart) {
+		this.nom_depart = nom_depart;
+	}
+
+	public void setNom_arrivee(String nom_arrivee) {
+		this.nom_arrivee = nom_arrivee;
+	}
+
 	public String getNom_depart() {
 		return nom_depart;
 	}
@@ -120,8 +137,8 @@ public class Trajet{
 		 */
 		while ((ligne = reader.readLine()) != null && fini==false) {
 			String s=ligne.trim();
-
 			if(s.contains("<h2>Mon espace</h2>")){
+				reponse="";
 				v=true;
 			}
 			if(v){
@@ -130,14 +147,9 @@ public class Trajet{
 					reponse = "ERROR";
 				}
 				else if(s.contains("ID:")){
-					System.out.println("idddddddddddddddddddd             " +s);
-
 					reponse=s;
-
 				}
 				else if(s.contains("input")){
-					System.out.println("inputtttttttttttttttttt             " +s);
-
 					reponse+=s+"\n";
 					
 				}
@@ -158,16 +170,27 @@ public class Trajet{
 	 * return "ERREUR"
 	 * return code html
 	 */
-	public String requeteDepart(String adresse) throws IOException{
+	public String requeteDepart(String adresse){
 		String resultat;
-		resultat = this.requete(adresse, "depart");
-		if(resultat.contains("ID:")){
+		try {
+			resultat = this.requete(adresse, "depart");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			resultat = null;
+		}
+		if(resultat==null){
+			resultat = "une erreur est survenu sur le site de la tan";
+		}
+		else if(resultat.contains("ID:")){
 			resultat=resultat.substring( resultat.lastIndexOf("ID"), resultat.lastIndexOf("<!--"));
 			String[] tab=resultat.split(":\\/");
 			this.nom_depart=tab[2];
 			this.code_depart=tab[1];
 			resultat="OK";
 		}	
+		else if(resultat.contains("ERROR")){
+			resultat = "Erreur, aucune adresse trouvé pour: "+adresse;
+		}
 		else{
 			this.nom_depart = "Arret, rue, ...";
 			this.code_depart = null;
@@ -180,16 +203,27 @@ public class Trajet{
 	 * return "ERREUR"
 	 * return code html
 	 */
-	public String requeteArrivee(String adresse) throws IOException{
+	public String requeteArrivee(String adresse){
 		String resultat;
-		resultat = this.requete(adresse, "arrivee");
+		try {
+			resultat = this.requete(adresse, "arrivee");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			resultat = null;
+		}
 
-		if(resultat.contains("ID:")){
+		if(resultat==null){
+			resultat = "une erreur est survenu sur le site de la tan";
+		}
+		else if(resultat.contains("ID:")){
 			resultat=resultat.substring( resultat.lastIndexOf("ID"), resultat.lastIndexOf("<!--"));
 			String[] tab=resultat.split(":\\/");
 			this.nom_arrivee=tab[2];
 			this.code_arrivee=tab[1];
 			resultat="OK";
+		}
+		else if(resultat.contains("ERROR")){
+			resultat = "Erreur, aucune adresse trouvé pour: "+adresse;
 		}
 		else{
 			this.nom_arrivee = "Arret, rue, ...";
@@ -203,8 +237,7 @@ public class Trajet{
 	 */
 	public void requeteTrajet(String heure) throws IOException{
 		String ur = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.html";
-		String post = "depart="+this.code_depart+"&arrive="+this.code_arrivee+"&type="+0+"&accessible="+((this.handicape) ? 1 : 0)+"&temps="+heure+"&retour=0";
-		System.out.println(post);
+		String post = "depart="+this.code_depart+"&arrive="+this.code_arrivee+"&type="+1+"&accessible="+0+"&temps="+heure+"&retour=0";
 		/**
 		 * idee: tout garder entre <p></p> puis supprimer toutes les balises
 		 * seul probleme: les deux premiers depart et arrivee, avec les heures. le faire séparément.
@@ -313,4 +346,18 @@ public class Trajet{
 		return t;
 	}
 
+	public boolean enregistrer_google_trajet(String transport, String depart, String arrivee, String itineraire, String heure) {
+		this.code_arrivee = null;
+		this.code_arrivee = null;
+		this.nom_arrivee = arrivee;
+		this.nom_depart = depart;
+		this.transport = transport;
+		return extraire_itineraire(itineraire);		
+	}
+	
+	public boolean extraire_itineraire(String itineraire){
+		String sous_chaine = itineraire.substring(itineraire.lastIndexOf(":iti:"), itineraire.lastIndexOf(":finiti:"));
+		this.detail_Trajet = sous_chaine;
+		return true;
+	}
 }
