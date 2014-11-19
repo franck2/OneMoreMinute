@@ -15,30 +15,49 @@ initialize = function(){
 calculate = function(){
 	var itineraire="";
 	var test=false;
-	origin      = document.getElementById('depart').value; // Le point départ
-    destination = document.getElementById('arrivee').value; // Le point d'arrivé
-    if(origin && destination){
-        var request = {
-            origin      : origin,
-            destination : destination,
-            travelMode  : google.maps.DirectionsTravelMode.WALKING // Mode de conduite
-        }
-        var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
-        directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
-            if(status == google.maps.DirectionsStatus.OK){
-            	var route = response.routes[0].legs[0];
-            	itineraire+=":dist:"+route.distance.text+":findist"+"\n"+":duree:"+route.duration.value+":finduree:"+"\n";
-            	itineraire +=":iti:";
-            	for(var i = 0; i<route.steps.length; i++){
-            		itineraire += route.steps[i].instructions+"\n";
-            	}
-            	itineraire+=":finiti:";
-            	document.getElementById('itineraire').value=itineraire;
-                document.forms["form"].submit();
+	var transport;
+	var bool=false;
+	if(document.getElementById('voiture').checked){
+		transport = google.maps.DirectionsTravelMode.DRIVING;
+		bool=true;
+	}
+	else if(document.getElementById('velo').checked){
+		transport = google.maps.DirectionsTravelMode.BICYCLING;
+		bool=true;
+	}
+	else if(document.getElementById('pied').checked){
+		transport = google.maps.DirectionsTravelMode.WALKING;
+		bool=true;
+	}
+	if(bool){
+		origin      = document.getElementById('depart').value; // Le point départ
+		destination = document.getElementById('arrivee').value; // Le point d'arrivé
+		if(origin && destination){
+			var request = {
+					origin      : origin,
+					destination : destination,
+					travelMode  : transport // Mode de conduite
+			}
+			var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
+			directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
+				if(status == google.maps.DirectionsStatus.OK){
+					var route = response.routes[0].legs[0];
+					itineraire+=":dist:"+route.distance.text+":findist"+"\n"+":duree:"+route.duration.value+":finduree:"+"\n";
+					itineraire +=":iti:";
+					for(var i = 0; i<route.steps.length; i++){
+						itineraire += route.steps[i].instructions+"\n";
+					}
+					itineraire+=":finiti:";
+					document.getElementById('itineraire').value=itineraire;
+				}
+				document.forms["form"].submit();
+			});
 
-            }
-        });
+		}
     }
+	else{
+		document.forms["form"].submit();
+	}
 };
 
 

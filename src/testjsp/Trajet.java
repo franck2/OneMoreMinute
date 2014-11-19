@@ -24,6 +24,7 @@ public class Trajet{
 	private String detail_Trajet;
 	private String transport;
 
+
 	public String getDetail_Trajet() {
 		return detail_Trajet;
 	}
@@ -356,8 +357,9 @@ public class Trajet{
 	}
 	
 	public boolean extraire_itineraire(String itineraire){
-		String sous_chaine = itineraire.substring(itineraire.lastIndexOf(":iti:"), itineraire.lastIndexOf(":finiti:"));
+		String sous_chaine = itineraire.substring(itineraire.lastIndexOf(":iti:")+5, itineraire.lastIndexOf(":finiti:"));
 		this.detail_Trajet = sous_chaine;
+		
 		return true;
 	}
 }

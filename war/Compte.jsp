@@ -77,7 +77,7 @@
         <label>Identifiant pour accéder à l'emploi du temps (ne rien mettre si il n'y en a pas besoin)</label><br/>
         <input type="text" id="user" name="user" value="${client.calendrier.user}" size="20" maxlength="20" /><br/>
         <label>Mot de passe pour accéder à l'emploi du temps (ne rien mettre si il n'y en a pas besoin)</label><br/>
-        <input type="text" id="mdp" name="mdp" value="${client.calendrier.mdp}" size="20" maxlength="20" /><br/><br/>
+        <input type="password" id="mdp" name="mdp" value="${client.calendrier.mdp}" size="20" maxlength="20" /><br/><br/>
         <input type="hidden" id="itineraire" name="itineraire" value =""/>
         <input type="hidden" id="enristrer" name="enregistrer" value ="enregistrer"/>
         <input type="button" value="enregistrer" onclick="calculate()"/>
