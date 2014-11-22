@@ -15,6 +15,9 @@
 			<p>Aucun itinéraire de calculé, choisir une adresse de départ et une adresse d'arrivée pour avoir un itinéraire</p>
 		</c:when>
 		<c:otherwise>
+			<p>Départ: ${client.trajet.heure_depart }</p>
+			<p>Arrivée: ${client.trajet.heure_arrivee }</p>
+			
 			<p>${client.trajet.detail_Trajet}</p>
 		</c:otherwise>
 	</c:choose>

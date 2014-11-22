@@ -347,19 +347,47 @@ public class Trajet{
 		return t;
 	}
 
-	public boolean enregistrer_google_trajet(String transport, String depart, String arrivee, String itineraire, String heure) {
+	public void enregistrer_google_trajet(String transport, String depart, String arrivee, String itineraire, String heure) {
 		this.code_arrivee = null;
 		this.code_arrivee = null;
 		this.nom_arrivee = arrivee;
 		this.nom_depart = depart;
 		this.transport = transport;
-		return extraire_itineraire(itineraire);		
+		String duree =  extraire_itineraire(itineraire);
+		System.out.println(heure);
+		calculer_heure_depart(duree, heure);
 	}
 	
-	public boolean extraire_itineraire(String itineraire){
+	public String extraire_itineraire(String itineraire){
 		String sous_chaine = itineraire.substring(itineraire.lastIndexOf(":iti:")+5, itineraire.lastIndexOf(":finiti:"));
 		this.detail_Trajet = sous_chaine;
-		
-		return true;
+		sous_chaine = itineraire.substring(itineraire.lastIndexOf(":duree:")+7, itineraire.lastIndexOf(":finduree:"));
+		return sous_chaine;
+	}
+	
+	public void calculer_heure_depart(String duree, String heure){
+		int duree_seconde;
+		try{
+			duree_seconde =Integer.parseInt(duree)+5*60;
+		}
+		catch(NumberFormatException e){
+			duree_seconde = 0;
+		}
+
+		int heure_seconde =((Integer.parseInt(heure.substring(heure.lastIndexOf(" ")+1, heure.lastIndexOf(":")))*60*60) + Integer.parseInt(heure.substring(heure.lastIndexOf(":")+1))*60);
+		heure_seconde=heure_seconde-duree_seconde;
+
+		double heure_h = heure_seconde/60/60;
+		Double d=new Double(heure_h);
+		this.heure_depart = d.intValue()+"h";
+		int g=Math.round((heure_seconde-d.intValue()*60*60)/60);
+		if(g<10){
+			this.heure_depart+="0"+g;
+		}
+		else{
+			this.heure_depart+=g;
+		}
+
+		this.heure_arrivee="h";
 	}
 }
