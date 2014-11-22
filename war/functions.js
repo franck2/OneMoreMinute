@@ -45,7 +45,7 @@ calculate = function(){
 					itineraire+=":dist:"+route.distance.text+":findist"+"\n"+":duree:"+route.duration.value+":finduree:"+"\n";
 					itineraire +=":iti:";
 					for(var i = 0; i<route.steps.length; i++){
-						itineraire += route.steps[i].instructions+"\n";
+						itineraire += route.steps[i].instructions+"<br/>\n";
 					}
 					itineraire+=":finiti:";
 					document.getElementById('itineraire').value=itineraire;

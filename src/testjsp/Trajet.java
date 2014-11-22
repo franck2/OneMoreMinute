@@ -239,10 +239,8 @@ public class Trajet{
 	public void requeteTrajet(String heure) throws IOException{
 		String ur = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.html";
 		String post = "depart="+this.code_depart+"&arrive="+this.code_arrivee+"&type="+1+"&accessible="+0+"&temps="+heure+"&retour=0";
-		/**
-		 * idee: tout garder entre <p></p> puis supprimer toutes les balises
-		 * seul probleme: les deux premiers depart et arrivee, avec les heures. le faire séparément.
-		 */
+
+
 		URL url = new URL(ur);
 		URLConnection  conn = url.openConnection();
 		conn.setDoOutput(true);
@@ -292,7 +290,7 @@ public class Trajet{
 				Pattern p = Pattern .compile("([0-9][0-9]h[0-9][0-9])");
 				Matcher m = p.matcher(ligne);
 				if(m.find()){
-					reponse+="</p><p>";
+					reponse+="<br/>";
 				}
 
 				reponse+=ligne+"\n";
@@ -311,7 +309,6 @@ public class Trajet{
 				resultat_iti=true;
 			}
 		}
-		reponse="<div>Départ à :"+this.heure_depart+"<p>"+reponse+"\n<p>Arrivée à : "+this.heure_arrivee+"</p></div>";
 		this.detail_Trajet = reponse;
 	}
 
@@ -336,13 +333,20 @@ public class Trajet{
 	}
 	
 	public String supprimer_balise(String t){
+
 		int debut = t.lastIndexOf("<");
 		int fin = t.lastIndexOf(">")+1;
 		while(debut>=0){
 			String sous_chaine = t.substring(debut, fin);
-			t = t.replace(sous_chaine, "");
+			t = t.replace(sous_chaine, " ");
 			debut = t.lastIndexOf("<");
 			fin = t.lastIndexOf(">")+1;
+		}
+		fin = t.lastIndexOf("\n");
+		while(fin>=0){
+			String sous_chaine = t.substring(fin);
+			t = t.replace(sous_chaine, "<br/>");
+			fin = t.lastIndexOf("\n");
 		}
 		return t;
 	}
@@ -354,17 +358,18 @@ public class Trajet{
 		this.nom_depart = depart;
 		this.transport = transport;
 		String duree =  extraire_itineraire(itineraire);
-		System.out.println(heure);
 		calculer_heure_depart(duree, heure);
 	}
 	
 	public String extraire_itineraire(String itineraire){
 		String sous_chaine = itineraire.substring(itineraire.lastIndexOf(":iti:")+5, itineraire.lastIndexOf(":finiti:"));
+		sous_chaine = supprimer_balise(sous_chaine);
 		this.detail_Trajet = sous_chaine;
 		sous_chaine = itineraire.substring(itineraire.lastIndexOf(":duree:")+7, itineraire.lastIndexOf(":finduree:"));
 		return sous_chaine;
 	}
 	
+
 	public void calculer_heure_depart(String duree, String heure){
 		int duree_seconde;
 		try{
@@ -374,20 +379,24 @@ public class Trajet{
 			duree_seconde = 0;
 		}
 
-		int heure_seconde =((Integer.parseInt(heure.substring(heure.lastIndexOf(" ")+1, heure.lastIndexOf(":")))*60*60) + Integer.parseInt(heure.substring(heure.lastIndexOf(":")+1))*60);
-		heure_seconde=heure_seconde-duree_seconde;
+		int heure_seconde = ((Integer.parseInt(heure.substring(heure.lastIndexOf(" ")+1, heure.lastIndexOf(":")))*60*60) + Integer.parseInt(heure.substring(heure.lastIndexOf(":")+1))*60);
+		heure_seconde = heure_seconde - duree_seconde;
 
 		double heure_h = heure_seconde/60/60;
-		Double d=new Double(heure_h);
+		Double d = new Double(heure_h);
+		
 		this.heure_depart = d.intValue()+"h";
-		int g=Math.round((heure_seconde-d.intValue()*60*60)/60);
+		int g = Math.round((heure_seconde-d.intValue()*60*60)/60);
+		
 		if(g<10){
-			this.heure_depart+="0"+g;
+			this.heure_depart += "0"+g;
 		}
 		else{
-			this.heure_depart+=g;
+			this.heure_depart += g;
 		}
-
-		this.heure_arrivee="h";
+		
+		heure_seconde+=duree_seconde-5*60;
+		
+		this.heure_arrivee=heure_seconde/60/60+"h"+(heure_seconde/60 - (heure_seconde/60/60)*60);
 	}
 }

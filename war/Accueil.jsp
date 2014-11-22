@@ -18,7 +18,7 @@
 			<p>Départ: ${client.trajet.heure_depart }</p>
 			<p>Arrivée: ${client.trajet.heure_arrivee }</p>
 			
-			<p>${client.trajet.detail_Trajet}</p>
+			<div>${client.trajet.detail_Trajet}</div>
 		</c:otherwise>
 	</c:choose>
 
