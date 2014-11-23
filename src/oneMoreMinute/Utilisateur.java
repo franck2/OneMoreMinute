@@ -1,4 +1,4 @@
-package testjsp;
+package oneMoreMinute;
 
 
 import com.googlecode.objectify.annotation.*;
@@ -17,7 +17,16 @@ public class Utilisateur {
 		private int divers;
 		private Calendrier calendrier;
 		private Trajet trajet;
+		private String heure_reveil;
 
+
+		public String getHeure_reveil() {
+			return heure_reveil;
+		}
+
+		public void setHeure_reveil(String heure_reveil) {
+			this.heure_reveil = heure_reveil;
+		}
 
 		public int getLaver() {
 			return laver;
@@ -25,7 +34,7 @@ public class Utilisateur {
 
 		public void setLaver(String laver) {
 			try{
-				this.laver =Integer.parseInt(laver);
+				this.laver = Integer.parseInt(laver);
 			}
 			catch(NumberFormatException e){
 				this.laver = 0;
@@ -38,7 +47,7 @@ public class Utilisateur {
 
 		public void setMaquiller(String maquiller) {
 			try{
-				this.maquiller =Integer.parseInt(maquiller);
+				this.maquiller = Integer.parseInt(maquiller);
 			}
 			catch(NumberFormatException e){
 				this.maquiller = 0;
@@ -51,7 +60,7 @@ public class Utilisateur {
 
 		public void setGeeker(String geeker) {
 			try{
-				this.geeker =Integer.parseInt(geeker);
+				this.geeker = Integer.parseInt(geeker);
 			}
 			catch(NumberFormatException e){
 				this.geeker = 0;
@@ -64,7 +73,7 @@ public class Utilisateur {
 
 		public void setDivers(String divers) {
 			try{
-				this.divers =Integer.parseInt(divers);
+				this.divers = Integer.parseInt(divers);
 			}
 			catch(NumberFormatException e){
 				this.divers = 0;
@@ -85,7 +94,7 @@ public class Utilisateur {
 		
 		public void setLever(String lever) {
 			try{
-				this.lever =Integer.parseInt(lever);
+				this.lever = Integer.parseInt(lever);
 			}
 			catch(NumberFormatException e){
 				this.lever = 0;
@@ -98,7 +107,7 @@ public class Utilisateur {
 		
 		public void setManger(String manger) {
 			try{
-				this.manger =Integer.parseInt(manger);
+				this.manger = Integer.parseInt(manger);
 			}
 			catch(NumberFormatException e){
 				this.manger = 0;
@@ -122,6 +131,7 @@ public class Utilisateur {
 			this.maquiller = 0;
 			this.geeker = 0;
 			this.divers = 0;
+			this.heure_reveil = null;
 			this.utilisateur = user;
 			this.trajet = new Trajet(user);
 			this.calendrier = new Calendrier(user);

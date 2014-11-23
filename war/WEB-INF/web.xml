@@ -15,7 +15,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     </filter-mapping>
 	<servlet>
 		<servlet-name>Accueil</servlet-name>
-		<servlet-class>testjsp.Accueil</servlet-class>
+		<servlet-class>oneMoreMinute.Accueil</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Accueil</servlet-name>
@@ -24,7 +24,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
 		<servlet-name>Compte</servlet-name>
-		<servlet-class>testjsp.Compte</servlet-class>
+		<servlet-class>oneMoreMinute.Compte</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Compte</servlet-name>

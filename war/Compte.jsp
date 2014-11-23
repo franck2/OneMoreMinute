@@ -53,6 +53,10 @@
     	<c:if test="${message_arrivee!=null }">
     	        <p>${message_arrivee}</p>
     	</c:if>
+    	
+    	<c:if test="${message_trajet!=null }">
+    	        <p>${message_trajet}</p>
+    	</c:if>
 
 		<br/><br/>
 		<label>Je veux voyager:</label><br/>
