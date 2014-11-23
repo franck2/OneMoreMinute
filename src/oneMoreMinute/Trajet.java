@@ -422,7 +422,7 @@ public class Trajet{
 		double heure_h = heure_seconde/60/60;
 		Double d = new Double(heure_h);
 		
-		this.heure_depart = d.intValue() + "h";
+		this.heure_depart = d.intValue() + ":";
 		int g = Math.round((heure_seconde-d.intValue()*60*60)/60);
 		
 		if(g<10){
@@ -434,6 +434,6 @@ public class Trajet{
 		
 		heure_seconde += duree_seconde - 5*60;
 		
-		this.heure_arrivee = heure_seconde/60/60 + "h" + (heure_seconde/60 - (heure_seconde/60/60)*60);
+		this.heure_arrivee = heure_seconde/60/60 + ":" + (heure_seconde/60 - (heure_seconde/60/60)*60);
 	}
 }

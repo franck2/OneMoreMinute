@@ -24,8 +24,12 @@ public class Utilisateur {
 			return heure_reveil;
 		}
 
-		public void setHeure_reveil(String heure_reveil) {
-			this.heure_reveil = heure_reveil;
+		public void setHeure_reveil() {
+			String heure_dep = this.getTrajet().getHeure_depart();
+			int temps_preparation_seconde = (this.laver + this.lever + this.geeker + this.manger + this.maquiller + this.divers) *60;
+			int heure_depart_seconde = (Integer.parseInt(heure_dep.substring(0, 2))*60*60 + Integer.parseInt(heure_dep.substring(3))*60);
+			heure_depart_seconde -= temps_preparation_seconde;
+			
 		}
 
 		public int getLaver() {

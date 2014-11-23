@@ -32,6 +32,7 @@ public class Calendrier {
 	private String url;
 	private String user;
 	private String mdp;
+	//plutot le mettre en date
 	private String heure_reveil;
 	
 
