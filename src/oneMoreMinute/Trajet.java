@@ -11,8 +11,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.googlecode.objectify.annotation.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import com.googlecode.objectify.annotation.*;
 @Entity
 public class Trajet{
 	
@@ -24,7 +28,6 @@ public class Trajet{
 	private String code_arrivee;
 	private String detail_Trajet;
 	private String transport;
-
 
 	public String getDetail_Trajet() {
 		return detail_Trajet;
@@ -118,54 +121,84 @@ public class Trajet{
 	 * return "ERREUR" si aucune adresse n'a été trouvée
 	 * return du code html (balises input et label) si plusieurs adresses ont été trouvees et si l'utilisateur doit faire un choix)
 	 */
-	public String requete(String adresse, String lieu) throws IOException{
+	public String requete(String adresse, String point){
 		
-		String ur = "https://www.tan.fr/ewp/mhv.php/itineraire/address.html";
-		String post = "nom=" + adresse + "&prefix=" + lieu;
-		URL url = new URL(ur);
+		String uri = "https://www.tan.fr/ewp/mhv.php/itineraire/address.json";
+		String post = "nom=" + adresse + "&prefix=" + point;
+		String reponse = "";
+		
+		try {
+			//	String uri = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.json";
+		//String post = "depart=Address|ADDRESS13930|DE LA MONTAGNE|Nantes||rue|303198|2253101&arrive=City|44109|Nantes|Nantes|||305969|2255299&type=1&accessible=0&temps=2014-11-2314:59&retour=0";
+		URL url = new URL(uri);
 		URLConnection  conn = url.openConnection();
 		conn.setDoOutput(true);
 		OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 		writer.write(post);
 		writer.flush();
 
-		String reponse = "", ligne = null;
+		String ligne = null;
 
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		//System.out.println(j);
 
-		boolean chercher_information = false;
 		boolean fini = false;
 		/*
 		 * Ce qui nous interesse se trouve entre les balises "<h2>Mon espace</h2>" et "<!-- pied de page K-Portal -->"
 		 */
 		while ((ligne = reader.readLine()) != null && fini == false) {
 			String ligne_courante = ligne.trim();
-			if(ligne_courante.contains("<h2>Mon espace</h2>")){
-				reponse = "";
-				chercher_information = true;
-			}
-			if(chercher_information){
+			reponse+=ligne_courante;
+		}
 
-				if(ligne_courante.contains("ERROR")){
-					reponse = "ERROR";
+		JSONParser g = new JSONParser();
+		JSONArray reponses;
+		/*requete simple*/
+
+			reponses = (JSONArray) g.parse(reponse);
+			
+			if(reponses.size()==0){
+				reponse = "Aucune adresse trouvée pour "+adresse;
+			}
+			else{
+				JSONObject rep = (JSONObject) reponses.get(0);
+				JSONArray lieux = (JSONArray) rep.get("lieux");
+
+				if(reponses.size()==1 && lieux.size()==1){
+					rep = (JSONObject) lieux.get(0);
+					if(point.equals("depart")){
+						this.code_depart = rep.get("id").toString();
+						this.nom_depart = rep.get("nom").toString() + " " + rep.get("cp").toString() + " " + rep.get("ville").toString();
+					}
+					else{
+						this.code_arrivee = rep.get("id").toString();
+						this.nom_arrivee = rep.get("nom").toString() + " " + rep.get("cp").toString() + " " + rep.get("ville").toString();
+					}
+					reponse = "OK";
 				}
-				else if(ligne_courante.contains("ID:")){
-					reponse = ligne_courante;
-				}
-				else if(ligne_courante.contains("input")){
-					reponse += ligne_courante + "\n";
+				else{
+					reponse="";
+					for(int j =0; j<reponses.size(); j++){
+						rep = (JSONObject) reponses.get(j);
+						lieux = (JSONArray) rep.get("lieux");
+						for(int i =0; i<lieux.size(); i++){
+							rep = (JSONObject) lieux.get(i);
+							String nom = rep.get("nom") + " " + rep.get("cp") + " " + rep.get("ville");
+							reponse += "<input type=\"radio\" name=\"pts_" + point +"\" id=\"" + rep.get("id") + "\" value=\"" +  rep.get("id") + ":|:" + nom + "\" />\n";
+							reponse += "<label for=\"" + rep.get("id") + "\" >" + nom + "</label><br/>\n";
+						}
+
+					}
 					
 				}
-				else if(ligne_courante.contains("label")){
-					reponse += ligne_courante + "<br/>\n";
-				}
-			}			
-			if(ligne_courante.contains("<!-- pied de page K-Portal -->")){
-				chercher_information = false;
-				fini = true;
 			}
+
+		} catch (ParseException | IOException e) {
+			// TODO Auto-generated catch block
+			reponse="Une erreur est survenue sur le site de la tan, veuillez réesayer ou recommencer plus tard.";
 		}
+		System.out.println("hhhhh  "+reponse);
 		return reponse;
 	}
 	
@@ -183,28 +216,7 @@ public class Trajet{
 		this.heure_depart = null;
 		
 		String resultat;
-		
-		try {
-			resultat = this.requete(adresse, "depart");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			resultat = null;
-		}
-		
-		if(resultat == null){
-			resultat = "une erreur est survenu sur le site de la tan";
-		}
-		else if(resultat.contains("ID:")){
-			resultat = resultat.substring( resultat.lastIndexOf("ID:"), resultat.lastIndexOf("<!--"));
-			String[] tab = resultat.split(":\\/");
-			this.nom_depart = tab[2];
-			this.code_depart = tab[1];
-			resultat = "OK";
-		}	
-		else if(resultat.contains("ERROR")){
-			resultat = "Erreur, aucune adresse trouvé pour: " + adresse;
-		}
-
+		resultat = this.requete(adresse, "depart");
 		return resultat;
 	}
 	
@@ -222,28 +234,8 @@ public class Trajet{
 		this.heure_depart = null;
 		
 		String resultat;
-		try {
-			resultat = this.requete(adresse, "arrivee");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			resultat = null;
-		}
-
-		if(resultat==null){
-			resultat = "une erreur est survenu sur le site de la tan";
-		}
-		else if(resultat.contains("ID:")){
-			resultat = resultat.substring( resultat.lastIndexOf("ID:"), resultat.lastIndexOf("<!--"));
-			String[] tab = resultat.split(":\\/");
-			this.nom_arrivee = tab[2];
-			this.code_arrivee = tab[1];
-			
-			resultat = "OK";
-		}
-		else if(resultat.contains("ERROR")){
-			resultat = "Erreur, aucune adresse trouvé pour: " + adresse;
-		}
-
+		resultat = this.requete(adresse, "arrivee");
+		
 		return resultat;
 	}
 	
@@ -340,9 +332,9 @@ public class Trajet{
 	 *prend entree le code de l'adresse (qui contient notament le nom de l'adresse)
 	 *modifie nom_arrivee et code_arrivee 
 	 */
-	public void enregistrer_arrivee(String code, String nom) {
-		this.nom_arrivee = nom;
-		this.code_arrivee = code;
+	public void enregistrer_arrivee(String valeur) {
+		this.nom_arrivee = valeur.substring(valeur.lastIndexOf(":|:") + 3);
+		this.code_arrivee = valeur.substring(0, valeur.lastIndexOf(":|:"));
 	}	
 	
 	/*
@@ -350,9 +342,9 @@ public class Trajet{
 	 *prend entree le code de l'adresse (qui contient notament le nom de l'adresse)
 	 *modifie nom_depart et code_depart 
 	 */
-	public void enregistrer_depart(String code, String nom) {
-		this.nom_depart = nom;
-		this.code_depart = code;
+	public void enregistrer_depart(String valeur) {
+		this.nom_depart = valeur.substring(valeur.lastIndexOf(":|:") + 3);
+		this.code_depart = valeur.substring(0, valeur.lastIndexOf(":|:"));
 	}
 	
 	public String supprimer_balise(String t){

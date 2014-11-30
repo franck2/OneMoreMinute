@@ -23,6 +23,7 @@ public class Accueil extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         Utilisateur utilisateur = ofy().load().type(Utilisateur.class).id(user.getEmail()).now();
