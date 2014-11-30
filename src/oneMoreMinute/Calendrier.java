@@ -151,7 +151,25 @@ public class Calendrier {
 		Date prochaine_date = dateFormat.parse(date);
 		java.util.Calendar calendar = GregorianCalendar.getInstance();
 		calendar.setTime(prochaine_date);
-		date = calendar.get(calendar.YEAR)+"-"+(calendar.get(calendar.MONTH)+1)+"-"+calendar.get(calendar.DATE)+"  "+calendar.get(calendar.HOUR)+":"+calendar.get(calendar.MINUTE);
+		date = calendar.get(calendar.YEAR)+"-";
+		int mois = (calendar.get(calendar.MONTH)+1);
+		if(mois<10){
+			date += "0" + mois + "-";
+		}
+		else{
+			date += mois + "-";
+
+		}
+		int date_jour = calendar.get(calendar.DATE);
+		if(date_jour<10){
+			date += "0" + date_jour;
+		}
+		else{
+			date += date_jour ;
+
+		}
+		
+		date += " "+calendar.get(calendar.HOUR)+":"+calendar.get(calendar.MINUTE);
 		return date;
 	}
 	

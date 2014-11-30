@@ -25,7 +25,7 @@
         <script src="js/respond.min.js"></script>
     <![endif]-->
 </head>
-</head>
+
 <body>
 	<!-- navbar navbar-time -->
     <nav class="navbar navbar-time navbar-static-top">
@@ -91,54 +91,49 @@
 		 				<div class="row">
 		 					<div class="col-sm-6">
 		 						<div class="panel panel info">
-		 							<div class="panel-heading">gestion du temps</div>
+		 							<div class="panel-heading">Gestion du temps</div>
 		 							<div class="panel-body">
 		 							
-		 							<div class="form-group">
-      									<label class="col-sm-6 control-label">Temps pour le bain</label>
-      									<div class="col-sm-6">
-         									<input type="text" id="laver" name="laver" class="form-control"  value=${client.laver}>
-      									</div>
-   									</div>
-		 							<div class="form-group">
-      									<label class="col-sm-6 control-label">Temps pour se maquiller</label>
-      									<div class="col-sm-6">
-         									<input type="text" id="maquiller" name="maquiller" value=${client.maquiller}  class="form-control" >
-      									</div>
-   									</div>
-   									<div class="form-group">
-      									<label class="col-sm-6 control-label"> Temps pour geeker</label>
-      									<div class="col-sm-6">
-         									<input type="text" id="geeker" name="geeker" value=${client.geeker} class="form-control" >
-      									</div>
-   									</div>
-   									<div class="form-group">
-      									<label class="col-sm-6 control-label"> temps pour manger</label>
-      									<div class="col-sm-6">
-         									 <input type="text" id="manger" name="manger" value=${client.manger} class="form-control" >
-      									</div>
-   									</div>
-   									<div class="form-group">
-      									<label class="col-sm-6 control-label">lever</label>
-      									<div class="col-sm-6">
-         									 <input type="text" id="lever" name="lever" value=${client.lever} class="form-control" >
-      									</div>
-   									</div>
-   									<div class="form-group">
-      									<label class="col-sm-6 control-label">divers</label>
-      									<div class="col-sm-6">
-         									<input type="text" id="divers" name="divers" value=${client.divers} class="form-control" >
-      									</div>
-   									</div>
-   									
+		 								<div class="form-group">
+      										<label class="col-sm-6 control-label">Temps pour se laver</label>
+      										<div class="col-sm-6">
+         										<input type="text" id="laver" name="laver" class="form-control"  value=${client.laver}>
+      										</div>
+   										</div>
+		 								<div class="form-group">
+      										<label class="col-sm-6 control-label">Temps pour se maquiller</label>
+      										<div class="col-sm-6">
+         										<input type="text" id="maquiller" name="maquiller" value=${client.maquiller}  class="form-control" >
+      										</div>
+   										</div>
+   										<div class="form-group">
+      										<label class="col-sm-6 control-label"> Temps pour geeker</label>
+      										<div class="col-sm-6">
+         										<input type="text" id="geeker" name="geeker" value=${client.geeker} class="form-control" >
+      										</div>
+   										</div>
+   										<div class="form-group">
+      										<label class="col-sm-6 control-label"> Temps pour manger</label>
+      										<div class="col-sm-6">
+         										 <input type="text" id="manger" name="manger" value=${client.manger} class="form-control" >
+      										</div>
+   										</div>
+   										<div class="form-group">
+      										<label class="col-sm-6 control-label">Temps pour se lever</label>
+      										<div class="col-sm-6">
+         										 <input type="text" id="lever" name="lever" value=${client.lever} class="form-control" >
+      										</div>
+   										</div>
+   										<div class="form-group">
+      										<label class="col-sm-6 control-label">Divers</label>
+      										<div class="col-sm-6">
+         										<input type="text" id="divers" name="divers" value=${client.divers} class="form-control" >
+      										</div>
+   										</div>   									
 		 							</div>
 		 						</div>
-		 					
-		 					
 		 					</div>
-		 					
-		 				
-		 					
+		 									
 		 			<div class="col-sm-6">
 		 				<div class="row">
 		 					<div class="col-sm-12">
@@ -152,16 +147,20 @@
          									<input type="text" id="depart" name="depart" value="${client.trajet.nom_depart}" class="form-control" >
       									</div>
    									</div>
+   									<div class="form-group">
+      									 <c:if test="${message_depart!=null }">
+    	        							<p>${message_depart}</p>
+    									</c:if>
+   									</div>
 		 							<div class="form-group">
-      									<label class="col-sm-2 control-label">Destination</label>
+      									<label class="col-sm-2 control-label">Arrivée</label>
       									<div class="col-sm-10">
          									<input type="text" id="arrivee" name="arrivee" value="${client.trajet.nom_arrivee}" class="form-control" >
       									</div>
    									</div>
-   									
    									<div class="form-group">
-      									 <c:if test="${message_depart!=null }">
-    	        							<p>${message_depart}</p>
+      									<c:if test="${message_arrivee!=null }">
+    	        							<p>${message_arrivee}</p>
     									</c:if>
    									</div>
    									<div class="form-group">
@@ -189,7 +188,7 @@
       										<input type="radio" name="transport" id="velo" value="velo">A Vélo
    										</label>
    										 <label class="checkbox-inline">
-      										<input type="radio" name="transport" id="velo" value="velo"> Par la TAN
+      										<input type="radio" name="transport" id="tan" value="tan"> Avec la TAN
    										</label>
    										 <label class="checkbox-inline">
       										<input type="radio" name="transport" id="pied" value="pied"> A Pied
@@ -214,7 +213,7 @@
            <div class="row">
               <div class="col-sm-12">
                  <div class="panel panel info">
-		 			<div class="panel-heading">Je veux voyager</div>
+		 			<div class="panel-heading">Informations emploi du temps</div>
 		 			<div class="panel-body">
 		 			<div class="row">
 		 				 <div class="col-sm-12">
@@ -261,11 +260,13 @@
                                    
                   </div>
                  </div>
+                        <input type="hidden" id="itineraire" name="itineraire" value =""/>
+                        <input type="hidden" id="enristrer" name="enregistrer" value ="enregistrer"/>
                 
                 </div>
                  <div class="row">
 		 			<div class="col-sm-12">
-		 				<input type="button" value="Calculer l'itinéraire" onclick="javascript:calculate()">
+		 				<input type="button" value="enregistrer" onclick="javascript:calculate()">
 		 			</div>
 		 		</div>         
                
@@ -368,13 +369,6 @@
     	jQuery('#${client.trajet.transport}').prop('checked', 'checked');
     }
     
-	$('input[name="depart_pa"]').click(function(){
-		jQuery('#depart').val(jQuery('label[for="'+jQuery(this).attr('id')+'"]').html());
-	});		
-	
-	$('input[name="arrivee_pa"]').click(function(){
-		jQuery('#arrivee').val(jQuery('label[for="'+jQuery(this).attr('id')+'"]').html());
-	});
 
 	
 	</script>

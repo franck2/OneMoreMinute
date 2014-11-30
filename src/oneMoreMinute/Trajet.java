@@ -110,7 +110,7 @@ public class Trajet{
 		this.heure_depart = null;
 		this.nom_arrivee = null;
 		this.code_arrivee = null;
-		this.detail_Trajet = "";
+		this.detail_Trajet = null;
 		this.id = user;
 	}
 	
@@ -248,7 +248,7 @@ public class Trajet{
 		String ur = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.html";
 		String post = "depart=" + this.code_depart + "&arrive=" + this.code_arrivee + "&type=1" + "&accessible=0" + "&temps=" + heure + "&retour=0";
 		URL url;
-		
+
 		try {
 			url = new URL(ur);
 		
@@ -318,6 +318,7 @@ public class Trajet{
 					resultat_iti = true;
 				}
 			}
+
 			this.detail_Trajet = reponse;
 			message_iti = "Itinéraire ajouté avec succès";
 		}

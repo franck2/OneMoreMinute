@@ -97,6 +97,7 @@ public class Compte  extends HttpServlet {
 					choix_arrivee = true;
 				}
 				if (choix_depart && choix_arrivee && utilisateur.getCalendrier().getHeure_reveil() != null){
+					System.out.println("ouiiiiiiiiiiiiiiiiiiiiii");
 					String message_trajet = utilisateur.getTrajet().requeteTrajet(utilisateur.getCalendrier().getHeure_reveil());
 					req.setAttribute("message_trajet", message_trajet);
 				}
@@ -106,6 +107,7 @@ public class Compte  extends HttpServlet {
 				req.setAttribute("message_trajet", message_trajet);
 			}
        }
+
        ofy().save().entity(utilisateur).now();
        req.setAttribute("client", utilisateur);
        this.getServletContext().getRequestDispatcher( "/Compte.jsp" ).forward( req, resp );		
