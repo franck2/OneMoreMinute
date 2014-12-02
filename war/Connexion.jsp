@@ -18,7 +18,7 @@
 
     <link href="css/animations.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
-    
+    <script type="text/javascript" src="http://www.supportduweb.com/page/js/flashobject.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -51,10 +51,8 @@
                  <ul class="nav navbar-nav navbar-right">
                  
                  
-                 	<% if (userService.getCurrentUser() == null) { %>
-						<p><a href="<%= userService.createLoginURL("/") %>">Se connecter</a></p>
-					<% }
-					else { %>
+                 	<% if (userService.getCurrentUser() != null) { %>
+						
 		
 		 				<li>
                         
@@ -88,11 +86,24 @@
                         <article class="item active">
                             <div class="row">
                                 <div class="col-md-12">
-                                    
-                                            <script type="text/javascript" src="http://www.supportduweb.com/page/js/flashobject.js"></script>
-                                                <div id="clock_7450" style="display:inline-block;">
+                                    <div class="container">
+                                    <div class=" col-sm-offset-5">  réveil connecté</div>
+                                    </div>
+                                     <div class="container clock">      
+                                                <div id="clock_7450"  class=" col-sm-offset-4">
                                                     <a href="http://get.adobe.com/flashplayer/">You need to install the Flash plugin</a> - <a href="http://www.supportduweb.com/">http://www.supportduweb.com/</a>
                                                 </div>
+                                       </div>
+                                                <div class="container">
+                                                	
+                                                	<div class=" col-sm-offset-5">
+                                                	<% if (userService.getCurrentUser() == null) { %>
+														<a href="<%= userService.createLoginURL("/") %>"  class="btn btn btn-warning btn-lg">Click To GO !</a>
+													<% }%>
+                                                	</div>
+                                                	
+                                                </div>
+                                                
                                             <script type="text/javascript">
                                                     var flashvars_7450 = {};
                                                     var params_7450 = {

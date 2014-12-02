@@ -90,7 +90,7 @@
 		 			<form id="main-contact-form"  method="post" name="form" action="Compte"" role="form" >
 		 				<div class="row">
 		 					<div class="col-sm-6">
-		 						<div class="panel panel info">
+		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Gestion du temps</div>
 		 							<div class="panel-body">
 		 							
@@ -137,7 +137,7 @@
 		 			<div class="col-sm-6">
 		 				<div class="row">
 		 					<div class="col-sm-12">
-		 						<div class="panel panel info">
+		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Informations Trajet</div>
 		 							<div class="panel-body">
 		 							
@@ -177,7 +177,7 @@
 		 				
 		 				<div class="row">
 		 					<div class="col-sm-12">
-		 						<div class="panel panel info">
+		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Je veux voyager</div>
 		 							<div class="panel-body">
 		 							
@@ -212,7 +212,7 @@
 		 					        
            <div class="row">
               <div class="col-sm-12">
-                 <div class="panel panel info">
+                 <div class="panel panel-info">
 		 			<div class="panel-heading">Informations emploi du temps</div>
 		 			<div class="panel-body">
 		 			<div class="row">
