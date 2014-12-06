@@ -31,7 +31,6 @@ public class Accueil extends HttpServlet {
         	utilisateur = new Utilisateur(user.getEmail());
             ofy().save().entity(utilisateur).now();
         }
-        System.out.println(utilisateur.getTrajet().getHeure_arrivee()+" "+utilisateur.getTrajet().getHeure_depart()+"  "+utilisateur.getTrajet().getDetail_Trajet());
         req.setAttribute("client", utilisateur);
         this.getServletContext().getRequestDispatcher( "/Accueil.jsp" ).forward( req, resp );	
 	}

@@ -13,7 +13,6 @@ import com.googlecode.objectify.ObjectifyService;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class Compte  extends HttpServlet {
-	
 	static{
 		ObjectifyService.register(Utilisateur.class);
 		ObjectifyService.register(Trajet.class);
@@ -25,6 +24,7 @@ public class Compte  extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         Utilisateur utilisateur = ofy().load().type(Utilisateur.class).id(user.getEmail()).now();
+
        //Une modification des informations du compte a ete faite
 		if(req.getParameter("enregistrer") != null){
     	   
@@ -97,7 +97,6 @@ public class Compte  extends HttpServlet {
 					choix_arrivee = true;
 				}
 				if (choix_depart && choix_arrivee && utilisateur.getCalendrier().getHeure_reveil() != null){
-					System.out.println("ouiiiiiiiiiiiiiiiiiiiiii");
 					String message_trajet = utilisateur.getTrajet().requeteTrajet(utilisateur.getCalendrier().getHeure_reveil());
 					req.setAttribute("message_trajet", message_trajet);
 				}

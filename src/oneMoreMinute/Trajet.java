@@ -4,6 +4,7 @@ import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -128,9 +129,8 @@ public class Trajet{
 		String reponse = "";
 		
 		try {
-			//	String uri = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.json";
-		//String post = "depart=Address|ADDRESS13930|DE LA MONTAGNE|Nantes||rue|303198|2253101&arrive=City|44109|Nantes|Nantes|||305969|2255299&type=1&accessible=0&temps=2014-11-2314:59&retour=0";
-		URL url = new URL(uri);
+			
+			URL url = new URL(uri);
 		URLConnection  conn = url.openConnection();
 		conn.setDoOutput(true);
 		OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
@@ -141,7 +141,6 @@ public class Trajet{
 
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		//System.out.println(j);
 
 		boolean fini = false;
 		/*
@@ -198,7 +197,6 @@ public class Trajet{
 			// TODO Auto-generated catch block
 			reponse="Une erreur est survenue sur le site de la tan, veuillez réesayer ou recommencer plus tard.";
 		}
-		System.out.println("hhhhh  "+reponse);
 		return reponse;
 	}
 	
@@ -244,13 +242,13 @@ public class Trajet{
 	 */
 	public String requeteTrajet(String heure){
 		
-		String message_iti;
-		String ur = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.html";
+		String message_iti = "";
+		String uri = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.json";
 		String post = "depart=" + this.code_depart + "&arrive=" + this.code_arrivee + "&type=1" + "&accessible=0" + "&temps=" + heure + "&retour=0";
 		URL url;
 
 		try {
-			url = new URL(ur);
+			url = new URL(uri);
 		
 			URLConnection  conn = url.openConnection();
 			conn.setDoOutput(true);
@@ -258,71 +256,48 @@ public class Trajet{
 			writer.write(post);
 			writer.flush();
 
-			String reponse = "",ligne = null;
-	
-			InputStreamReader sr = new InputStreamReader(conn.getInputStream(),"ISO-8859-1");
-			BufferedReader reader = new BufferedReader(sr);
-			boolean trouve_iti = false;
+			String ligne = null;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
 			boolean fini = false;
-			boolean resultat_iti = false;
-			
-		/*
-		 * Ce qui nous interesse se trouve entre "<h2>Mon espace</h2>" et "<!-- pied de page K-Portal -->"
-		 */
-
+	
 			while ((ligne = reader.readLine()) != null && fini==false) {
-				
-				ligne = ligne.trim();
-
-				if(trouve_iti && ligne.contains("<li>Départ")){
-					Pattern p = Pattern .compile("([0-9][0-9]:[0-9][0-9])");
-					Matcher m = p.matcher(ligne);
-					if(m.find()){
-						heure_depart = ligne.substring(m.start(), m.end());
-					}
-				}
-				else if(trouve_iti && ligne.contains("<li>Arrivée")){
-					Pattern p = Pattern .compile("([0-9][0-9]:[0-9][0-9])");
-					Matcher m = p.matcher(ligne);
-					if(m.find()){
-						heure_arrivee = ligne.substring(m.start(), m.end());
-					}
-				}
-				
-				/**
-				 * Les informations qui nous interessent sont dans
-				 * des balises p.
-				 */
-				else if(resultat_iti && ligne.contains("<p")){
-					ligne = supprimer_balise(ligne);
-
-					Pattern p = Pattern .compile("([0-9][0-9]h[0-9][0-9])");
-					Matcher m = p.matcher(ligne);
-					if(m.find()){
-						reponse += "<br/>";
-					}
-
-					reponse += ligne+"\n";
-
-				}
-				
-				if(ligne.contains("<!-- pied de page K-Portal -->") || ligne.contains("Itinéraire 2 :")){
-					trouve_iti = false;
-					fini = true;
-				}
-				
-				if(ligne.contains("Itinéraire 1 :")){
-					trouve_iti = true;
-				}			
-				if(trouve_iti && ligne.contains("résultat d'itinéraire")){
-					resultat_iti = true;
-				}
+				message_iti += ligne.trim();
 			}
+			
 
-			this.detail_Trajet = reponse;
+			JSONParser g = new JSONParser();
+			JSONArray reponses;
+
+			reponses = (JSONArray) g.parse(message_iti);
+			
+			if(reponses.size()==0){
+				message_iti = "Une erreur s'est produite";
+			}
+			else{
+				JSONObject rep = (JSONObject) reponses.get(0);
+
+				this.heure_depart = rep.get("heureDepart").toString();
+				this.heure_arrivee = rep.get("heureArrivee").toString();
+				this.detail_Trajet = "Durée du trajet: " + rep.get("duree").toString()+"\n<br/>";
+				
+				JSONArray etapes = (JSONArray) rep.get("etapes");
+				
+				for(int i = 0; i<etapes.size(); i++){
+					JSONObject x = (JSONObject) etapes.get(i);
+					if((boolean) x.get("marche")){
+						this.detail_Trajet += x.get("heureDepart") + " Rejoindre à pied: " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
+					}
+						
+					else{
+						this.detail_Trajet += x.get("heureDepart") +" Prendre la ligne : " + ((JSONObject) x.get("ligne")).get("numLigne") + " en direction de " + ((JSONObject) x.get("ligne")).get("terminus") + ". Descendre à l'arret " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
+					}
+				}
+
+			}
 			message_iti = "Itinéraire ajouté avec succès";
 		}
-		catch (IOException e2) {
+		catch (IOException | ParseException e2) {
 			message_iti = "ERREUR un problème est survenu, veuillez reesayer";
 		}
 		return message_iti;

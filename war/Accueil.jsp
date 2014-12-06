@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <title>One More Time</title>
+    <title>One More Minute</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" type="image/x-icon" href="">
@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">One More <span>Time</span></a>
+                <a class="navbar-brand" href="#">One More <span>Minute</span></a>
             </header> <!-- navbar-header -->
 
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
