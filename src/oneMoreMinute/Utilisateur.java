@@ -17,7 +17,7 @@ public class Utilisateur {
 		private int divers;
 		private Calendrier calendrier;
 		private Trajet trajet;
-		private String heure_reveil;
+		private String heure_reveil;    	// => date_reveil
 
 
 		public String getHeure_reveil() {

@@ -24,7 +24,7 @@ public class Compte  extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         Utilisateur utilisateur = ofy().load().type(Utilisateur.class).id(user.getEmail()).now();
-
+System.out.println("poooooooooooooooooooooooooooooooooooooooo");
        //Une modification des informations du compte a ete faite
 		if(req.getParameter("enregistrer") != null){
     	   
