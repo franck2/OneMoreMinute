@@ -30,12 +30,28 @@ import com.googlecode.objectify.annotation.*;
 public class Trajet{
 	
 	@Id String id;
+	/*
+	 * Nom des adresses
+	 */
 	private String nom_depart;
-	private String heure_depart, heure_arrivee;
-	private String code_depart;
 	private String nom_arrivee;
+
+	private String heure_depart, heure_arrivee;
+	
+	/*
+	 * null si l'utilisateur n'utilise pas la tan, code specifique a la tan
+	 */
+	private String code_depart;
 	private String code_arrivee;
+	
+	/*
+	 * informations sur le trajet
+	 */
 	private String detail_Trajet;
+	
+	/*
+	 * ta, voiture, velo ...
+	 */
 	private String transport;
 
 	public String getDetail_Trajet() {
@@ -139,40 +155,39 @@ public class Trajet{
 		try {
 			
 			URL url = new URL(uri);
-		URLConnection  conn = url.openConnection();
-		conn.setDoOutput(true);
-		OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-		writer.write(post);
-		writer.flush();
-
-		String ligne = null;
-
-		
-		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-		boolean fini = false;
-		/*
-		 * Ce qui nous interesse se trouve entre les balises "<h2>Mon espace</h2>" et "<!-- pied de page K-Portal -->"
-		 */
-		while ((ligne = reader.readLine()) != null && fini == false) {
-			String ligne_courante = ligne.trim();
-			reponse+=ligne_courante;
-		}
-
-		JSONParser g = new JSONParser();
-		JSONArray reponses;
-		/*requete simple*/
+			URLConnection  conn = url.openConnection();
+			conn.setDoOutput(true);
+			OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+			writer.write(post);
+			writer.flush();
+	
+			String ligne = null;
+	
+			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	
+			boolean fini = false;
+			/*
+			 * Ce qui nous interesse se trouve entre les balises "<h2>Mon espace</h2>" et "<!-- pied de page K-Portal -->"
+			 */
+			while ((ligne = reader.readLine()) != null && fini == false) {
+				String ligne_courante = ligne.trim();
+				reponse += ligne_courante;
+			}
+	
+			JSONParser g = new JSONParser();
+			JSONArray reponses;
+			/*requete simple*/
 
 			reponses = (JSONArray) g.parse(reponse);
 			
-			if(reponses.size()==0){
+			if(reponses.size() == 0){
 				reponse = "Aucune adresse trouvée pour "+adresse;
 			}
 			else{
 				JSONObject rep = (JSONObject) reponses.get(0);
 				JSONArray lieux = (JSONArray) rep.get("lieux");
 
-				if(reponses.size()==1 && lieux.size()==1){
+				if(reponses.size() == 1 && lieux.size() == 1){
 					rep = (JSONObject) lieux.get(0);
 					if(point.equals("depart")){
 						this.code_depart = rep.get("id").toString();
@@ -185,8 +200,8 @@ public class Trajet{
 					reponse = "OK";
 				}
 				else{
-					reponse="";
-					for(int j =0; j<reponses.size(); j++){
+					reponse = "";
+					for(int j = 0; j < reponses.size(); j++){
 						rep = (JSONObject) reponses.get(j);
 						lieux = (JSONArray) rep.get("lieux");
 						for(int i =0; i<lieux.size(); i++){
@@ -269,7 +284,7 @@ public class Trajet{
 
 			boolean fini = false;
 	
-			while ((ligne = reader.readLine()) != null && fini==false) {
+			while ((ligne = reader.readLine()) != null && fini == false) {
 				message_iti += ligne.trim();
 			}
 			
@@ -279,7 +294,7 @@ public class Trajet{
 
 			reponses = (JSONArray) g.parse(message_iti);
 			
-			if(reponses.size()==0){
+			if(reponses.size() == 0){
 				message_iti = "Une erreur s'est produite";
 			}
 			else{
@@ -287,7 +302,7 @@ public class Trajet{
 				
 				Calendar cc = new GregorianCalendar();
 				int diff = 0;
-				if((rep.get("heureDepart").toString()).compareTo(rep.get("heureArrivee").toString())>0){
+				if((rep.get("heureDepart").toString()).compareTo(rep.get("heureArrivee").toString()) > 0){
 					diff = -1;
 				}
 				cc.set(Integer.parseInt(this.heure_arrivee.substring(0, 4)), (Integer.parseInt(this.heure_arrivee.substring(5, 7))-1), (Integer.parseInt(this.heure_arrivee.substring(8))+diff));
@@ -295,12 +310,12 @@ public class Trajet{
 				
 				this.heure_depart = (cc.get(cc.YEAR)) + "-" + formatter.format((cc.get(cc.MONTH)+1)) + "-" + formatter.format(cc.get(cc.DATE))+" - "+rep.get("heureDepart").toString();
 
-				this.heure_arrivee +=" - "+rep.get("heureArrivee").toString();
-				this.detail_Trajet = "Durée du trajet: " + rep.get("duree").toString()+"\n<br/>";
+				this.heure_arrivee += " - " + rep.get("heureArrivee").toString();
+				this.detail_Trajet = "Durée du trajet: " + rep.get("duree").toString() + "\n<br/>";
 				
 				JSONArray etapes = (JSONArray) rep.get("etapes");
 				
-				for(int i = 0; i<etapes.size(); i++){
+				for(int i = 0; i < etapes.size(); i++){
 					JSONObject x = (JSONObject) etapes.get(i);
 					if((boolean) x.get("marche")){
 						this.detail_Trajet += x.get("heureDepart") + " Rejoindre à pied: " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
@@ -321,7 +336,7 @@ public class Trajet{
 	}
 
 	/*
-	 *Est utiliser quand l'utilisateur a le choix entre plusieur adresses d'arrivee
+	 *Est utilise quand l'utilisateur a le choix entre plusieur adresses d'arrivee
 	 *prend entree le code de l'adresse (qui contient notament le nom de l'adresse)
 	 *modifie nom_arrivee et code_arrivee 
 	 */
@@ -331,7 +346,7 @@ public class Trajet{
 	}	
 	
 	/*
-	 *Est utiliser quand l'utilisateur a le choix entre plusieur adresses de depart
+	 *Est utilise quand l'utilisateur a le choix entre plusieur adresses de depart
 	 *prend entree le code de l'adresse (qui contient notament le nom de l'adresse)
 	 *modifie nom_depart et code_depart 
 	 */
@@ -340,24 +355,27 @@ public class Trajet{
 		this.code_depart = valeur.substring(0, valeur.lastIndexOf(":|:"));
 	}
 	
-	public String supprimer_balise(String t){
+	/*
+	 * Methode utilisee pour supprimer les balises inutiles dans le detail d'itineraire de google
+	 */
+	public String supprimer_balise(String chaine){
 
-		int debut = t.lastIndexOf("<");
-		int fin = t.lastIndexOf(">") + 1;
+		int debut = chaine.lastIndexOf("<");
+		int fin = chaine.lastIndexOf(">") + 1;
 		
 		while(debut >= 0){
-			String sous_chaine = t.substring(debut, fin);
-			t = t.replace(sous_chaine, " ");
-			debut = t.lastIndexOf("<");
-			fin = t.lastIndexOf(">") + 1;
+			String sous_chaine = chaine.substring(debut, fin);
+			chaine = chaine.replace(sous_chaine, " ");
+			debut = chaine.lastIndexOf("<");
+			fin = chaine.lastIndexOf(">") + 1;
 		}
-		fin = t.lastIndexOf("\n");
+		fin = chaine.lastIndexOf("\n");
 		while(fin >= 0){
-			String sous_chaine = t.substring(fin);
-			t = t.replace(sous_chaine, "<br/>");
-			fin = t.lastIndexOf("\n");
+			String sous_chaine = chaine.substring(fin);
+			chaine = chaine.replace(sous_chaine, "<br/>");
+			fin = chaine.lastIndexOf("\n");
 		}
-		return t;
+		return chaine;
 	}
 
 	public String enregistrer_google_trajet(String transport, String depart, String arrivee, String itineraire, String heure) {
@@ -391,46 +409,27 @@ public class Trajet{
 	}
 	
 
+	/*
+	 * Clacule une heure de depart en fonction d'une heure d'arrivee voulue, et de la duree du trajet
+	 */
 	public void calculer_heure_depart(String duree, String heure){
-		
-		this.heure_arrivee = heure.substring(0, 4)+"-"+heure.substring(5, 7)+"-"+heure.substring(8,10)+" - ";
-		System.out.println("tfkyhtfvgv;jv    "   +heure);
-		
-		NumberFormat formatter = new DecimalFormat("00");
 
-		
-		int duree_seconde;
-		//System.out.println(cc.get(cc.YEAR)+" "+cc.get(cc.MONTH)+"  "+cc.get(cc.DATE)+"   "+cc.get(cc.HOUR)+);
-		
-		try{
-			duree_seconde = Integer.parseInt(duree)+5*60;
-		}
-		catch(NumberFormatException e){
-			duree_seconde = 0;
-		}
+		NumberFormat formater = new DecimalFormat("00");
+		int duree_seconde = Integer.parseInt(duree);
 
-		int heure_seconde = ((Integer.parseInt(heure.substring(heure.lastIndexOf(" ")+1, heure.lastIndexOf(":")))*60*60) + Integer.parseInt(heure.substring(heure.lastIndexOf(":")+1))*60);
-		heure_seconde = heure_seconde - duree_seconde;
+		Calendar cc = new GregorianCalendar();
+		cc.set(Integer.parseInt(heure.substring(0, 4)), (Integer.parseInt(heure.substring(5, 7))-1), (Integer.parseInt(heure.substring(8,10))), Integer.parseInt(heure.substring(heure.lastIndexOf(" ")+1, heure.lastIndexOf(":"))), (Integer.parseInt(heure.substring(heure.lastIndexOf(":")+1))-10));
 
-		double heure_h = heure_seconde/60/60;
-		Double d = new Double(heure_h);
+		this.heure_arrivee = cc.get(cc.YEAR) + "-" + cc.get(cc.MONTH) + "-" + cc.get(cc.DATE) + " - " + formater.format(cc.get(cc.HOUR_OF_DAY)) + ":" + formater.format(cc.get(cc.MINUTE));
 		
-		String heure_dep = formatter.format(d.intValue()) + ":" + formatter.format(Math.round((heure_seconde-d.intValue()*60*60)/60));
+		int h = duree_seconde/60/60;
+		int m = (duree_seconde-h)/60;
+				
+		cc.add(cc.HOUR, -h);
+		cc.add(cc.MINUTE, -m);
+		this.heure_depart = (cc.get(cc.YEAR)) + "-" + formater.format((cc.get(cc.MONTH)+1)) + "-" + formater.format(cc.get(cc.DATE))+" - "+ formater.format(cc.get(cc.HOUR_OF_DAY)) + ":" + formater.format(cc.get(cc.MINUTE));
+		
+		System.out.println(this.heure_arrivee + "  "+this.heure_depart);
 
-		
-		heure_seconde += duree_seconde - 5*60;
-		
-		 String heure_arr = formatter.format(heure_seconde/60/60) + ":" + formatter.format(heure_seconde/60 - (heure_seconde/60/60)*60);
-
-		 System.out.println("les heure           "+heure_arr + "   "+heure_dep);
-		 System.out.println(Integer.parseInt(heure.substring(0, 4))+"   "+ (Integer.parseInt(heure.substring(5, 7))-1)+"     "+ (Integer.parseInt(heure.substring(8,10))));
-		 Calendar cc = new GregorianCalendar();
-			int diff = 0;
-			if((heure_dep).compareTo(heure_arr)>0){
-				diff = -1;
-			}
-			cc.set(Integer.parseInt(heure.substring(0, 4)), (Integer.parseInt(heure.substring(5, 7))-1), (Integer.parseInt(heure.substring(8,10))+diff));
-			this.heure_depart = (cc.get(cc.YEAR)) + "-" + formatter.format((cc.get(cc.MONTH)+1)) + "-" + formatter.format(cc.get(cc.DATE))+" - "+heure_dep;
-			this.heure_arrivee+=heure_arr;
 	}
 }

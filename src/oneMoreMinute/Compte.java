@@ -14,6 +14,7 @@ import com.googlecode.objectify.ObjectifyService;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+@SuppressWarnings("serial")
 public class Compte  extends HttpServlet {
 	static{
 		ObjectifyService.register(Utilisateur.class);
@@ -24,30 +25,35 @@ public class Compte  extends HttpServlet {
 		
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         Utilisateur utilisateur = ofy().load().type(Utilisateur.class).id(user.getEmail()).now();
+        
        //Une modification des informations du compte a ete faite
 		if(req.getParameter("enregistrer") != null){
-    	   System.out.println(req.getParameter("reveil"));
-			if(req.getParameter("reveil")!=null){
-		       Reveil reveil = ofy().load().type(Reveil.class).id(req.getParameter("reveil")).now();
-	    	   System.out.println(reveil);
 
-	    	   if(reveil !=null){
+			if(req.getParameter("reveil") != null){
+		       Reveil reveil = ofy().load().type(Reveil.class).id(req.getParameter("reveil")).now();
+		       /*
+		        * Si l'utilisateur a ajoute un reveil et qu'il existe, alors on ajoute le reveil et on ajoute l'adresse mail
+		        * de l'utilisateur eu reveil.
+		        */
+		       if(reveil !=null){
 		        	reveil.setUtilisateur(utilisateur.getUtilisateur());
 		        	utilisateur.setReveil(req.getParameter("reveil"));
 		            ofy().save().entity(reveil).now();
 
 		        }
 			}
-    	   //Tout d'abord l'emploi du temps
+			
+    	   //Modification de l'emplois du temps
     	   String message_edt = utilisateur.getCalendrier().modifier_edt(req.getParameter("user"), req.getParameter("mdp"), req.getParameter("edt"));
+    	   //ce message indique si l'emplois du temps a bien été ajouté
     	   req.setAttribute("message_edt", message_edt);
 
 			
-    	   /*verification que les informations sont bien des entiers
-    	    * Si ce n'ets pas le cas on met les valeurs a 0
+    	   /*Modification des informations relative au temp de preparation
     	    */
 			utilisateur.setLaver(req.getParameter("laver"));
 			utilisateur.setLever(req.getParameter("lever"));
@@ -56,9 +62,15 @@ public class Compte  extends HttpServlet {
 			utilisateur.setMaquiller(req.getParameter("maquiller"));
 			utilisateur.setGeeker(req.getParameter("geeker"));
 			
-			if(req.getParameter("transport").equals("tan")){
+			
+			if(req.getParameter("transport") != null && req.getParameter("transport").equals("tan")){
 				
 				utilisateur.getTrajet().setTransport("tan");
+				
+				/*
+				 * ce deux booleen servent a savoir si on doit faire une requete pour avoir
+				 * l'itineraire tan (si on a les adresses de depart et d'arrivee.
+				 */
 				boolean choix_depart=false;
 				boolean choix_arrivee=false;
 			
@@ -109,13 +121,13 @@ public class Compte  extends HttpServlet {
 				else{
 					choix_arrivee = true;
 				}
-				if (choix_depart && choix_arrivee && utilisateur.getCalendrier().getHeure_reveil() != null){
-					String message_trajet = utilisateur.getTrajet().requeteTrajet(utilisateur.getCalendrier().getHeure_reveil());
+				if (choix_depart && choix_arrivee && utilisateur.getCalendrier().getDate_reveil() != null){
+					String message_trajet = utilisateur.getTrajet().requeteTrajet(utilisateur.getCalendrier().getDate_reveil());
 					req.setAttribute("message_trajet", message_trajet);
 				}
 			}
 			else{
-				String message_trajet = utilisateur.getTrajet().enregistrer_google_trajet(req.getParameter("transport"), req.getParameter("depart"), req.getParameter("arrivee"), req.getParameter("itineraire"), utilisateur.getCalendrier().getHeure_reveil());
+				String message_trajet = utilisateur.getTrajet().enregistrer_google_trajet(req.getParameter("transport"), req.getParameter("depart"), req.getParameter("arrivee"), req.getParameter("itineraire"), utilisateur.getCalendrier().getDate_reveil());
 				req.setAttribute("message_trajet", message_trajet);
 			}
        }

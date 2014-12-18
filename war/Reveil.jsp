@@ -17,6 +17,10 @@
 		<p>Prochain réveil: ${heure_reveil}</p>
         <input type="hidden" id="heure_reveil" name="heure_reveil" value ="${heure_reveil }"/>
 	<c:if>
+	<form method="post" name=form" action="ServletReveil">
+		<input type="hidden" id="maj" value="false">
+	
+	</form>
 	<script src="js/jquery.js"></script>
 	<script src="js/reveil.js"></script>
 </body>

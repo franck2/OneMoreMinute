@@ -59,7 +59,7 @@ public class Utilisateur {
 
 			 cc.add(cc.HOUR, -h);
 			 cc.add(cc.MINUTE, -m);
-
+			 System.out.println("je suis ici");
 			heure_reveil = formatter.format(cc.get(cc.DATE))+"/"+formatter.format(cc.get(cc.MONTH)+1)+"/"+cc.get(cc.YEAR)+" - "+formatter.format(cc.get(cc.HOUR))+":"+formatter.format(cc.get(cc.MINUTE));
 		}
 
@@ -67,6 +67,10 @@ public class Utilisateur {
 			return laver;
 		}
 
+		public void maj(){
+			this.getTrajet().requeteTrajet(this.getCalendrier().getDate_reveil());
+		}
+		
 		public void setLaver(String laver) {
 			try{
 				this.laver = Integer.parseInt(laver);

@@ -1,6 +1,6 @@
 $(function(){
 	$("#but").click(function(e){startAlarm(e);});
-	
+	$("#body").click(function(e){stopAlarme(e);})
 	regleAlarme();
 });
 
@@ -14,6 +14,7 @@ function startAlarm(e){
 }
 
 function stopAlarme(){	
+	document.getElementById('maj').value="true";
 	window.location.reload();
 }
 
