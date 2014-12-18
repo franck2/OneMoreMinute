@@ -7,6 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+<input type="button" id="but">
 
+<audio id="myAudio" src="Game_Of_Thrones.ogg"></audio>
+	<c:if test="${erreur!=null }">
+		<p>${erreur}</p>
+	<c:if>
+	<c:if test="${client!=null }">
+		<p>Prochain réveil: ${heure_reveil}</p>
+        <input type="hidden" id="heure_reveil" name="heure_reveil" value ="${heure_reveil }"/>
+	<c:if>
+	<script src="js/jquery.js"></script>
+	<script src="js/reveil.js"></script>
 </body>
 </html>

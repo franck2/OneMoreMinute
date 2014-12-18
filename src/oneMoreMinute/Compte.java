@@ -1,10 +1,12 @@
 package oneMoreMinute;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -17,6 +19,7 @@ public class Compte  extends HttpServlet {
 		ObjectifyService.register(Utilisateur.class);
 		ObjectifyService.register(Trajet.class);
 		ObjectifyService.register(Calendrier.class);
+		ObjectifyService.register(Reveil.class);
 	}
 		
 	@Override
@@ -24,10 +27,20 @@ public class Compte  extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         Utilisateur utilisateur = ofy().load().type(Utilisateur.class).id(user.getEmail()).now();
-System.out.println("poooooooooooooooooooooooooooooooooooooooo");
        //Une modification des informations du compte a ete faite
 		if(req.getParameter("enregistrer") != null){
-    	   
+    	   System.out.println(req.getParameter("reveil"));
+			if(req.getParameter("reveil")!=null){
+		       Reveil reveil = ofy().load().type(Reveil.class).id(req.getParameter("reveil")).now();
+	    	   System.out.println(reveil);
+
+	    	   if(reveil !=null){
+		        	reveil.setUtilisateur(utilisateur.getUtilisateur());
+		        	utilisateur.setReveil(req.getParameter("reveil"));
+		            ofy().save().entity(reveil).now();
+
+		        }
+			}
     	   //Tout d'abord l'emploi du temps
     	   String message_edt = utilisateur.getCalendrier().modifier_edt(req.getParameter("user"), req.getParameter("mdp"), req.getParameter("edt"));
     	   req.setAttribute("message_edt", message_edt);

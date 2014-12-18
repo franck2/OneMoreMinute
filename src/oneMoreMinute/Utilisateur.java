@@ -1,6 +1,11 @@
 package oneMoreMinute;
 
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import com.googlecode.objectify.annotation.*;
 
 @Entity
@@ -11,6 +16,14 @@ public class Utilisateur {
 		
 		private int laver;
 		private int maquiller;
+		public String getUtilisateur() {
+			return utilisateur;
+		}
+
+		public void setUtilisateur(String utilisateur) {
+			this.utilisateur = utilisateur;
+		}
+
 		private int geeker;
 		private int lever;
 		private int manger;
@@ -18,18 +31,36 @@ public class Utilisateur {
 		private Calendrier calendrier;
 		private Trajet trajet;
 		private String heure_reveil;    	// => date_reveil
+		private String reveil;
 
+
+		public String getReveil() {
+			return reveil;
+		}
+
+		public void setReveil(String reveil) {
+			this.reveil = reveil;
+		}
 
 		public String getHeure_reveil() {
 			return heure_reveil;
 		}
 
 		public void setHeure_reveil() {
+			NumberFormat formatter = new DecimalFormat("00");
+
 			String heure_dep = this.getTrajet().getHeure_depart();
-			int temps_preparation_seconde = (this.laver + this.lever + this.geeker + this.manger + this.maquiller + this.divers) *60;
-			int heure_depart_seconde = (Integer.parseInt(heure_dep.substring(0, 2))*60*60 + Integer.parseInt(heure_dep.substring(3))*60);
-			heure_depart_seconde -= temps_preparation_seconde;
-			
+			int temps_preparation = (this.laver + this.lever + this.geeker + this.manger + this.maquiller + this.divers);
+
+			int h = temps_preparation/60;
+			int m = (temps_preparation-h*60);
+			 Calendar cc = new GregorianCalendar();
+			 cc.set(Integer.parseInt(heure_dep.substring(0, 4)), (Integer.parseInt(heure_dep.substring(5, 7))-1), (Integer.parseInt(heure_dep.substring(8,10))),Integer.parseInt(heure_dep.substring(heure_dep.lastIndexOf(":")-2, heure_dep.lastIndexOf(":"))) ,Integer.parseInt(heure_dep.substring(heure_dep.lastIndexOf(":")+1, heure_dep.lastIndexOf(":")+3)) );
+
+			 cc.add(cc.HOUR, -h);
+			 cc.add(cc.MINUTE, -m);
+
+			heure_reveil = formatter.format(cc.get(cc.DATE))+"/"+formatter.format(cc.get(cc.MONTH)+1)+"/"+cc.get(cc.YEAR)+" - "+formatter.format(cc.get(cc.HOUR))+":"+formatter.format(cc.get(cc.MINUTE));
 		}
 
 		public int getLaver() {

@@ -4,7 +4,15 @@ import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -246,7 +254,7 @@ public class Trajet{
 		String uri = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.json";
 		String post = "depart=" + this.code_depart + "&arrive=" + this.code_arrivee + "&type=1" + "&accessible=0" + "&temps=" + heure + "&retour=0";
 		URL url;
-
+		this.heure_arrivee = heure.substring(0, heure.lastIndexOf(" "));
 		try {
 			url = new URL(uri);
 		
@@ -276,9 +284,18 @@ public class Trajet{
 			}
 			else{
 				JSONObject rep = (JSONObject) reponses.get(0);
+				
+				Calendar cc = new GregorianCalendar();
+				int diff = 0;
+				if((rep.get("heureDepart").toString()).compareTo(rep.get("heureArrivee").toString())>0){
+					diff = -1;
+				}
+				cc.set(Integer.parseInt(this.heure_arrivee.substring(0, 4)), (Integer.parseInt(this.heure_arrivee.substring(5, 7))-1), (Integer.parseInt(this.heure_arrivee.substring(8))+diff));
+				NumberFormat formatter = new DecimalFormat("00");
+				
+				this.heure_depart = (cc.get(cc.YEAR)) + "-" + formatter.format((cc.get(cc.MONTH)+1)) + "-" + formatter.format(cc.get(cc.DATE))+" - "+rep.get("heureDepart").toString();
 
-				this.heure_depart = rep.get("heureDepart").toString();
-				this.heure_arrivee = rep.get("heureArrivee").toString();
+				this.heure_arrivee +=" - "+rep.get("heureArrivee").toString();
 				this.detail_Trajet = "Durée du trajet: " + rep.get("duree").toString()+"\n<br/>";
 				
 				JSONArray etapes = (JSONArray) rep.get("etapes");
@@ -299,7 +316,7 @@ public class Trajet{
 		}
 		catch (IOException | ParseException e2) {
 			message_iti = "ERREUR un problème est survenu, veuillez reesayer";
-		}
+		} 
 		return message_iti;
 	}
 
@@ -375,7 +392,15 @@ public class Trajet{
 	
 
 	public void calculer_heure_depart(String duree, String heure){
+		
+		this.heure_arrivee = heure.substring(0, 4)+"-"+heure.substring(5, 7)+"-"+heure.substring(8,10)+" - ";
+		System.out.println("tfkyhtfvgv;jv    "   +heure);
+		
+		NumberFormat formatter = new DecimalFormat("00");
+
+		
 		int duree_seconde;
+		//System.out.println(cc.get(cc.YEAR)+" "+cc.get(cc.MONTH)+"  "+cc.get(cc.DATE)+"   "+cc.get(cc.HOUR)+);
 		
 		try{
 			duree_seconde = Integer.parseInt(duree)+5*60;
@@ -390,18 +415,22 @@ public class Trajet{
 		double heure_h = heure_seconde/60/60;
 		Double d = new Double(heure_h);
 		
-		this.heure_depart = d.intValue() + ":";
-		int g = Math.round((heure_seconde-d.intValue()*60*60)/60);
-		
-		if(g<10){
-			this.heure_depart += "0" + g;
-		}
-		else{
-			this.heure_depart += g;
-		}
+		String heure_dep = formatter.format(d.intValue()) + ":" + formatter.format(Math.round((heure_seconde-d.intValue()*60*60)/60));
+
 		
 		heure_seconde += duree_seconde - 5*60;
 		
-		this.heure_arrivee = heure_seconde/60/60 + ":" + (heure_seconde/60 - (heure_seconde/60/60)*60);
+		 String heure_arr = formatter.format(heure_seconde/60/60) + ":" + formatter.format(heure_seconde/60 - (heure_seconde/60/60)*60);
+
+		 System.out.println("les heure           "+heure_arr + "   "+heure_dep);
+		 System.out.println(Integer.parseInt(heure.substring(0, 4))+"   "+ (Integer.parseInt(heure.substring(5, 7))-1)+"     "+ (Integer.parseInt(heure.substring(8,10))));
+		 Calendar cc = new GregorianCalendar();
+			int diff = 0;
+			if((heure_dep).compareTo(heure_arr)>0){
+				diff = -1;
+			}
+			cc.set(Integer.parseInt(heure.substring(0, 4)), (Integer.parseInt(heure.substring(5, 7))-1), (Integer.parseInt(heure.substring(8,10))+diff));
+			this.heure_depart = (cc.get(cc.YEAR)) + "-" + formatter.format((cc.get(cc.MONTH)+1)) + "-" + formatter.format(cc.get(cc.DATE))+" - "+heure_dep;
+			this.heure_arrivee+=heure_arr;
 	}
 }

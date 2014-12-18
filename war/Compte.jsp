@@ -256,8 +256,8 @@
     						</c:if>
 		 				 </div>
 		 			</div>
-		 			
-		 			
+		 			<label>Id de votre véveil</label>
+		 			<input type=text" id="reveil" name="reveil" value="${client.reveil}">
 		 			</div>
                                    	
                                    

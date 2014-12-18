@@ -31,6 +31,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/Compte</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ServletReveil</servlet-name>
+		<servlet-class>oneMoreMinute.ServletReveil</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletReveil</servlet-name>
+		<url-pattern>/ServletReveil</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>Connexion.jsp</welcome-file>
 	</welcome-file-list>

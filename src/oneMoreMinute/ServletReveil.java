@@ -17,8 +17,7 @@ public class ServletReveil extends HttpServlet {
 	
 	static{
 		ObjectifyService.register(Utilisateur.class);
-		ObjectifyService.register(Trajet.class);
-		ObjectifyService.register(Calendrier.class);
+		ObjectifyService.register(Reveil.class);
 	}
 	
 	@Override
@@ -27,19 +26,27 @@ public class ServletReveil extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         Reveil reveil = ofy().load().type(Reveil.class).id(req.getParameter("id")).now();
-        
+
         if(reveil == null){
         	reveil = new Reveil(req.getParameter("id"));
             ofy().save().entity(reveil).now();
         }
-        Utilisateur utilisateur = ofy().load().type(Utilisateur.class).id(reveil.getUtilisateur()).now();
-        
-        
-        if(utilisateur == null){
+        String adresse = reveil.getUtilisateur();
+        Utilisateur utilisateur = null;
+        if(adresse != null){
+        	utilisateur = ofy().load().type(Utilisateur.class).id(reveil.getUtilisateur()).now();
+        	utilisateur.setHeure_reveil();
+        	System.out.println(utilisateur.getHeure_reveil());
+
+            req.setAttribute("heure_reveil", utilisateur.getHeure_reveil());
+
+        }
+        else{
+        	utilisateur.setHeure_reveil();
         	req.setAttribute("erreur", "aucune addresse gmail liée avec cet appareil");
         	req.setAttribute("id", reveil.getIdentifiant());
+
         }
-        req.setAttribute("client", utilisateur);
-        this.getServletContext().getRequestDispatcher( "/Accueil.jsp" ).forward( req, resp );	
+        this.getServletContext().getRequestDispatcher( "/Reveil.jsp" ).forward( req, resp );	
 	}
 }

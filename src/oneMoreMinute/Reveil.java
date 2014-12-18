@@ -1,7 +1,6 @@
 package oneMoreMinute;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.*;
 
 @Entity
 public class Reveil {
@@ -9,8 +8,12 @@ public class Reveil {
 	@Id private String identifiant;
 	private String utilisateur;
 
-	Reveil(String id){
+	private Reveil(){
+		
+	}
+	public Reveil(String id){
 		this.identifiant = id;
+		this.utilisateur = null;
 	}
 	
 	public String getIdentifiant() {

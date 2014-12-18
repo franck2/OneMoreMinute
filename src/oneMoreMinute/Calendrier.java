@@ -105,52 +105,7 @@ public class Calendrier {
 		}
 		return cal;
 	}
-	
-	public Component premier_evenement_demain(Calendar c){
 		
-		Date date = new Date();
-		date.setDate(date.getDate()+1);
-		date.setHours(0);
-		date.setMinutes(0);
-		Component evenement = null;
-		try {
-			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-			TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
-			dateFormat.setTimeZone(TimeZone.getDefault());
-			String date_aujourdhui = dateFormat.format(date);
-			Date aujourdhui, date_a_comparer = null;
-		
-			aujourdhui = dateFormat.parse(date_aujourdhui);
-		
-			System.out.println(aujourdhui);
-
-			for (Iterator i = c.getComponents().iterator(); i.hasNext();) {
-				
-				Component component = (Component) i.next();
-			  
-				 if(component.getProperty("TRANSP") ==null || !component.getProperty("TRANSP").getValue().equals("TRANSPARENT")){
-					  
-				
-					 String a_comparer = component.getProperty("DTSTART").getValue();
-					 if (a_comparer.compareTo(date_aujourdhui) >= 0 && (evenement == null || a_comparer.compareTo(evenement.getProperty("DTSTART").getValue()) < 0)){
-						 date_a_comparer=dateFormat.parse(component.getProperty("DTSTART").getValue());
-						 System.out.println("dac    "+date_a_comparer);
-
-						 if(aujourdhui.getMonth() == date_a_comparer.getMonth() && aujourdhui.getDate()==date_a_comparer.getDate() && aujourdhui.getYear() == date_a_comparer.getYear()){
-							  evenement = component;
-						 }	
-					 }
-				}
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-			return evenement;
-	}
-	
-	
 	public Component prochain_evenement(Calendar c) throws ParseException{
 		Date date = new Date();
 		Component evenement = null;
@@ -161,7 +116,7 @@ public class Calendrier {
 		String date_aujourdhui = dateFormat.format(date);
 		Date aujourdhui, date_a_comparer = null;
 		aujourdhui = dateFormat.parse(date_aujourdhui);
-		System.out.println(aujourdhui);
+
 		for (Iterator i = c.getComponents().iterator(); i.hasNext();) {
 				
 			  Component component = (Component) i.next();
@@ -185,16 +140,21 @@ public class Calendrier {
 	}
 	
 	public String heure_de_debut(Calendar c) throws ParseException{
-		if(premier_evenement_demain(c)==null){
+		if(prochain_evenement(c)==null){
 			System.out.println("rien demain");
 		}
 		else{
-			System.out.println(premier_evenement_demain(c).getProperty("DTSTART").getValue());
+			System.out.println(prochain_evenement(c).getProperty("DTSTART").getValue());
 		}
+		System.out.println("jjjjjj     "+prochain_evenement(c).getProperty("DTSTART").getValue());
 		String date = prochain_evenement(c).getProperty("DTSTART").getValue();
+		System.out.println("kghvkjgvkgvk");
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+1:00"));
 		Date prochaine_date = dateFormat.parse(date);
+		System.out.println("ppppppppppppppppppppppppppp");
+
 		java.util.Calendar calendar = GregorianCalendar.getInstance();
 		calendar.setTime(prochaine_date);
 		date = calendar.get(calendar.YEAR)+"-";
@@ -216,6 +176,7 @@ public class Calendrier {
 		}
 		
 		date += " "+calendar.get(calendar.HOUR_OF_DAY)+":"+calendar.get(calendar.MINUTE);
+		System.out.println("date         "+date);
 		return date;
 	}
 	
