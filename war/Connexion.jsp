@@ -105,7 +105,7 @@
                                                 	
                                                 	<div class=" col-sm-offset-5 btncon">
                                                 	<% if (userService.getCurrentUser() == null) { %>
-														<a href="<%= userService.createLoginURL("/Accueil.jsp") %>"  class="btn btn btn-warning btn-lg">Click Here</a>
+														<a href="<%= userService.createLoginURL("/Accueil") %>"  class="btn btn btn-warning btn-lg">Click Here</a>
 													<% }%>
                                                 	</div>
                                                 	

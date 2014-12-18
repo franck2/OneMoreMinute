@@ -24,7 +24,7 @@ public class Accueil extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         Utilisateur utilisateur = ofy().load().type(Utilisateur.class).id(user.getEmail()).now();
-        
+        System.out.println("kgvkgvkjgv");
         if(utilisateur == null){
         	utilisateur = new Utilisateur(user.getEmail());
             ofy().save().entity(utilisateur).now();
