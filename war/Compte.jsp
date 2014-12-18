@@ -2,7 +2,7 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ page import="com.google.appengine.api.users.*" %>
     <% UserService userService = UserServiceFactory.getUserService(); %>
-<!DOCTYPE>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -27,9 +27,6 @@
 </head>
 
 <body>
-<input type="button" id="but">
-
-<audio id="myAudio" src="Game_Of_Thrones.ogg"></audio>
 	<!-- navbar navbar-time -->
     <nav class="navbar navbar-time navbar-static-top">
         <div class="container">
@@ -44,8 +41,8 @@
 
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
                 <ul class="nav navbar-nav navbar-nav-time ">
-                    <li class="active"><a href="#">HOME</a></li>
-                    <li><a href="#">Team</a></li>
+                    <li class="active"><a href="Accueil">Accueil</a></li>
+                   <li><a href="#">Github</a></li>
                     <li><a href="#">Readme</a></li>
                  
                 </ul> <!-- navbar-nav -->
@@ -59,15 +56,8 @@
 					else { %>
 		
 		 				<li>
-                        
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %><b class="caret"></b></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Accueil"><i class="fa fa-pencil fa-fw"></i> SmartR</a></li>
-                                <li><a href="<%= userService.createLogoutURL("/") %>"><i class="fa fa-pencil fa-fw"></i> Se déconnecter</a></li>
-                                
-                                <li class="divider"></li>
-                                <li><a href="#"><i class="i"></i> Make admin</a></li>
-                            </ul>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
+
                       </li>
 					<% 	} %>
                    
@@ -92,92 +82,106 @@
   
 		 			<form id="main-contact-form"  method="post" name="form" action="Compte"" role="form" >
 		 				<div class="row">
-		 					<div class="col-sm-6">
+		 					<div class="col-sm-12">
 		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Gestion du temps</div>
 		 							<div class="panel-body">
+		 							<div class=row">
 		 							
-		 								<div class="form-group">
-      										<label class="col-sm-6 control-label">Temps pour se laver</label>
+		 								<div class="form-group col-sm-6"> 
+		 								 <label class="col-sm-6 control-label">Temps pour se laver</label>
       										<div class="col-sm-6">
          										<input type="text" id="laver" name="laver" class="form-control"  value=${client.laver}>
       										</div>
    										</div>
-		 								<div class="form-group">
+		 								<div class="form-group col-sm-6">
       										<label class="col-sm-6 control-label">Temps pour se maquiller</label>
       										<div class="col-sm-6">
          										<input type="text" id="maquiller" name="maquiller" value=${client.maquiller}  class="form-control" >
       										</div>
+      										</div>
    										</div>
-   										<div class="form-group">
+   										<div class=row">	
+   										
+   										<div class="form-group col-sm-6">
       										<label class="col-sm-6 control-label"> Temps pour geeker</label>
       										<div class="col-sm-6">
          										<input type="text" id="geeker" name="geeker" value=${client.geeker} class="form-control" >
       										</div>
    										</div>
-   										<div class="form-group">
+   										<div class="form-group col-sm-6">
       										<label class="col-sm-6 control-label"> Temps pour manger</label>
       										<div class="col-sm-6">
          										 <input type="text" id="manger" name="manger" value=${client.manger} class="form-control" >
       										</div>
+      										</div>
    										</div>
-   										<div class="form-group">
+   										<div class=row">
+   										
+   										<div class="form-group col-sm-6">
       										<label class="col-sm-6 control-label">Temps pour se lever</label>
       										<div class="col-sm-6">
          										 <input type="text" id="lever" name="lever" value=${client.lever} class="form-control" >
       										</div>
    										</div>
-   										<div class="form-group">
+   										<div class="form-group col-sm-6"">
       										<label class="col-sm-6 control-label">Divers</label>
       										<div class="col-sm-6">
          										<input type="text" id="divers" name="divers" value=${client.divers} class="form-control" >
+      										</div>
       										</div>
    										</div>   									
 		 							</div>
 		 						</div>
 		 					</div>
 		 									
-		 			<div class="col-sm-6">
+		 			<div class="col-sm-12">
 		 				<div class="row">
 		 					<div class="col-sm-12">
 		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Informations Trajet</div>
 		 							<div class="panel-body">
+		 					 		<div class=row">
 		 							
-		 							<div class="form-group">
+		 							<div class="form-group col-sm-6">
       									<label class="col-sm-2 control-label">Départ</label>
       									<div class="col-sm-10">
          									<input type="text" id="depart" name="depart" value="${client.trajet.nom_depart}" class="form-control" >
       									</div>
-   									</div>
-   									<div class="form-group">
+   									
+   									<label>
       									 <c:if test="${message_depart!=null }">
     	        							<p>${message_depart}</p>
     									</c:if>
+   									</label>
    									</div>
-		 							<div class="form-group">
+		 							<div class="form-group col-sm-6">
       									<label class="col-sm-2 control-label">Arrivée</label>
       									<div class="col-sm-10">
          									<input type="text" id="arrivee" name="arrivee" value="${client.trajet.nom_arrivee}" class="form-control" >
       									</div>
-   									</div>
-   									<div class="form-group">
+   									
+   									<label class=" msg">
       									<c:if test="${message_arrivee!=null }">
     	        							<p>${message_arrivee}</p>
     									</c:if>
+   									</label>
    									</div>
-   									<div class="form-group">
+   									</div>
+   									<div class="row">
+   									 <label class="col-sm-12  msg">
+   									
       									<c:if test="${message_trajet!=null }">
     	        							<p>${message_trajet}</p>
     									</c:if>
-   									</div>
+   									</label>
 		 							</div>
 		 						</div>
 		 					
 		 					
 		 					</div>
 		 				</div>
-		 				
+		 				</div>
 		 				<div class="row">
 		 					<div class="col-sm-12">
 		 						<div class="panel panel-info">
@@ -219,24 +223,22 @@
 		 			<div class="panel-heading">Informations emploi du temps</div>
 		 			<div class="panel-body">
 		 			<div class="row">
-		 				 <div class="col-sm-12">
+		 				 <div class="form-group col-sm-12">
 		 				 
-		 				 <div class="form-group">
-   							 <label for="name">lien emploi du temps</label>
+   							 <label class="col-sm-3 control-label">lien emploi du temps</label>
+   							 <div class="col-sm-9">
    							 <input type="text" class="form-control"  id="edt" name="edt" value="${client.calendrier.url}">
  						 </div>
 		 				 </div>
 		 			</div>
 		 			<div class="row">
-		 				 <div class="col-sm-6">
-		 				 	<div class="form-group">
-      							<label class="col-sm-8 control-label">Nom utilisateur</label>
-      							<div class="col-sm-4">
+		 				 	<div class="form-group col-sm-6">
+      							<label class="col-sm-4 control-label">Nom utilisateur</label>
+      							<div class="col-sm-8">
          							<input type="text" id="user" name="user" value="${client.calendrier.user}" class="form-control" >
       							</div>
    							</div>
-		 				 </div>
-		 				 <div class="col-sm-6">
+		 				 <div class="form-group col-sm-6">
 		 				 
 		 				 <div class="form-group">
       							<label class="col-sm-8 control-label">Mot de passe pour accéder à l'emploi du temps (ne rien mettre si il n'y en a pas besoin)</label>
@@ -246,8 +248,6 @@
    						</div>
 		 				 
 		 				 </div>
-		 			</div>
-		 			
 		 			<div class="row">
 		 				 <div class="col-sm-12">
 		 				

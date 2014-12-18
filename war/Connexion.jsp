@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <title>One More Minute</title>
+    <title>One More Time</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" type="image/x-icon" href="">
@@ -37,34 +37,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">One More <span>Minute</span></a>
+                <a class="navbar-brand" href="#">One More <span>Time</span></a>
             </header> <!-- navbar-header -->
 
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
                 <ul class="nav navbar-nav navbar-nav-time ">
-                    <li class="active"><a href="#">HOME</a></li>
-                    <li><a href="#">Team</a></li>
+                   
+                    <li><a href="#">Github</a></li>
                     <li><a href="#">Readme</a></li>
                  
                 </ul> <!-- navbar-nav -->
 
                  <ul class="nav navbar-nav navbar-right">
                  
-                 
                  	<% if (userService.getCurrentUser() != null) { %>
 						
-		
-		 				<li>
-                        
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %><b class="caret"></b></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Accueil"><i class="fa fa-pencil fa-fw"></i> SmartR</a></li>
-                                <li><a href="<%= userService.createLogoutURL("/") %>"><i class="fa fa-pencil fa-fw"></i> Se déconnecter</a></li>
-                                
-                                <li class="divider"></li>
-                                <li><a href="#"><i class="i"></i> Make admin</a></li>
-                            </ul>
+		 			 <li>	
+                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
+                            
                       </li>
+                      <li>
+                      <a href="<%= userService.createLogoutURL("/") %>" class="btn btn-default"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>Déconnexion</a>
+                      
+                      </li>
+                      
 					<% 	} %>
                    
                    
@@ -87,38 +83,34 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="container">
-                                    <div class=" col-sm-offset-5">  réveil connecté</div>
+                                         <div id="clock_2995" class=" col-sm-offset-5"> 
+                                         
+                                        
+												<script type="text/javascript">
+												var flashvars_2995 = {};
+												var params_2995 = {
+												quality: "high",
+												wmode: "transparent",
+												bgcolor: "#ffffff",
+												allowScriptAccess: "always",
+												};
+												var attributes_2995 = {};
+												flashObject("http://flash.supportduweb.com/horloges/horloge26.swf", "clock_2995", "150", "150", "8", false, flashvars_2995, params_2995, attributes_2995);
+												</script>
+                                         </div>
                                     </div>
-                                     <div class="container clock">      
-                                                <div id="clock_7450"  class=" col-sm-offset-4">
-                                                    <a href="http://get.adobe.com/flashplayer/">You need to install the Flash plugin</a> - <a href="http://www.supportduweb.com/">http://www.supportduweb.com/</a>
-                                                </div>
-                                       </div>
+                             
+                                     
                                                 <div class="container">
                                                 	
-                                                	<div class=" col-sm-offset-5">
+                                                	<div class=" col-sm-offset-5 btncon">
                                                 	<% if (userService.getCurrentUser() == null) { %>
-														<a href="<%= userService.createLoginURL("/") %>"  class="btn btn btn-warning btn-lg">Click To GO !</a>
+														<a href="<%= userService.createLoginURL("/Accueil.jsp") %>"  class="btn btn btn-warning btn-lg">Click Here</a>
 													<% }%>
                                                 	</div>
                                                 	
                                                 </div>
-                                                
-                                            <script type="text/javascript">
-                                                    var flashvars_7450 = {};
-                                                    var params_7450 = {
-                                                        quality: "high",
-                                                        wmode: "transparent",
-                                                        bgcolor: "#ffffff",
-                                                        allowScriptAccess: "always",
-                                                    };
-                                                    var attributes_7450 = {};
-                                                    flashObject("http://flash.supportduweb.com/horloges/horloge07.swf", "clock_7450", "250", "250", "100", false, flashvars_7450, params_7450, attributes_7450);
-                                            </script>
-
-
-
-
+            
                                 </div>
                                 
                             </div>
