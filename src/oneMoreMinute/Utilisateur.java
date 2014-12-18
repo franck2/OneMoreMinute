@@ -16,6 +16,25 @@ public class Utilisateur {
 		
 		private int laver;
 		private int maquiller;
+		private int geeker;
+		private int lever;
+		private int manger;
+		private int divers;
+		private Calendrier calendrier;
+		private Trajet trajet;
+		private String date_reveil;    	// => date_reveil
+		private String reveil;
+		//lien de la musique de reveil
+		private String musique;
+
+		public String getMusique() {
+			return musique;
+		}
+
+		public void setMusique(String musique) {
+			this.musique = musique;
+		}
+
 		public String getUtilisateur() {
 			return utilisateur;
 		}
@@ -23,17 +42,7 @@ public class Utilisateur {
 		public void setUtilisateur(String utilisateur) {
 			this.utilisateur = utilisateur;
 		}
-
-		private int geeker;
-		private int lever;
-		private int manger;
-		private int divers;
-		private Calendrier calendrier;
-		private Trajet trajet;
-		private String heure_reveil;    	// => date_reveil
-		private String reveil;
-
-
+		
 		public String getReveil() {
 			return reveil;
 		}
@@ -42,25 +51,27 @@ public class Utilisateur {
 			this.reveil = reveil;
 		}
 
-		public String getHeure_reveil() {
-			return heure_reveil;
+		public String getDate_reveil() {
+			return date_reveil;
 		}
 
-		public void setHeure_reveil() {
+		public void setDate_reveil() {
 			NumberFormat formatter = new DecimalFormat("00");
 
 			String heure_dep = this.getTrajet().getHeure_depart();
-			int temps_preparation = (this.laver + this.lever + this.geeker + this.manger + this.maquiller + this.divers);
-
-			int h = temps_preparation/60;
-			int m = (temps_preparation-h*60);
-			 Calendar cc = new GregorianCalendar();
-			 cc.set(Integer.parseInt(heure_dep.substring(0, 4)), (Integer.parseInt(heure_dep.substring(5, 7))-1), (Integer.parseInt(heure_dep.substring(8,10))),Integer.parseInt(heure_dep.substring(heure_dep.lastIndexOf(":")-2, heure_dep.lastIndexOf(":"))) ,Integer.parseInt(heure_dep.substring(heure_dep.lastIndexOf(":")+1, heure_dep.lastIndexOf(":")+3)) );
-
-			 cc.add(cc.HOUR, -h);
-			 cc.add(cc.MINUTE, -m);
-			 System.out.println("je suis ici");
-			heure_reveil = formatter.format(cc.get(cc.DATE))+"/"+formatter.format(cc.get(cc.MONTH)+1)+"/"+cc.get(cc.YEAR)+" - "+formatter.format(cc.get(cc.HOUR))+":"+formatter.format(cc.get(cc.MINUTE));
+			if(heure_dep != null){
+				int temps_preparation = (this.laver + this.lever + this.geeker + this.manger + this.maquiller + this.divers);
+	
+				int h = temps_preparation/60;
+				int m = (temps_preparation-h*60);
+				 Calendar cc = new GregorianCalendar();
+				 cc.set(Integer.parseInt(heure_dep.substring(0, 4)), (Integer.parseInt(heure_dep.substring(5, 7))-1), (Integer.parseInt(heure_dep.substring(8,10))),Integer.parseInt(heure_dep.substring(heure_dep.lastIndexOf(":")-2, heure_dep.lastIndexOf(":"))) ,Integer.parseInt(heure_dep.substring(heure_dep.lastIndexOf(":")+1, heure_dep.lastIndexOf(":")+3)) );
+	
+				 cc.add(cc.HOUR, -h);
+				 cc.add(cc.MINUTE, -m);
+				 System.out.println("je suis ici");
+				 date_reveil = formatter.format(cc.get(cc.DATE)) + "/"+formatter.format(cc.get(cc.MONTH) + 1) + "/" + cc.get(cc.YEAR) + " - " + formatter.format(cc.get(cc.HOUR)) + ":"+formatter.format(cc.get(cc.MINUTE));
+			}
 		}
 
 		public int getLaver() {
@@ -69,6 +80,7 @@ public class Utilisateur {
 
 		public void maj(){
 			this.getTrajet().requeteTrajet(this.getCalendrier().getDate_reveil());
+			this.setDate_reveil();
 		}
 		
 		public void setLaver(String laver) {
@@ -170,10 +182,11 @@ public class Utilisateur {
 			this.maquiller = 0;
 			this.geeker = 0;
 			this.divers = 0;
-			this.heure_reveil = null;
+			this.date_reveil = null;
 			this.utilisateur = user;
 			this.trajet = new Trajet(user);
 			this.calendrier = new Calendrier(user);
+			this.reveil = null;
 		}
 
 		

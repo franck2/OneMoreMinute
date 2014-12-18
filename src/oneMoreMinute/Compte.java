@@ -31,9 +31,13 @@ public class Compte  extends HttpServlet {
         Utilisateur utilisateur = ofy().load().type(Utilisateur.class).id(user.getEmail()).now();
         
        //Une modification des informations du compte a ete faite
-		if(req.getParameter("enregistrer") != null){
+		if(req.getParameter("enregistrer") != null ){
+			if(req.getParameter("musique") != null){
+				utilisateur.setMusique(req.getParameter("musique"));
+			}
 
-			if(req.getParameter("reveil") != null){
+			if(req.getParameter("reveil") != null && req.getParameter("reveil").length()>0){
+
 		       Reveil reveil = ofy().load().type(Reveil.class).id(req.getParameter("reveil")).now();
 		       /*
 		        * Si l'utilisateur a ajoute un reveil et qu'il existe, alors on ajoute le reveil et on ajoute l'adresse mail

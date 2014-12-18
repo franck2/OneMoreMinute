@@ -35,9 +35,9 @@ public class ServletReveil extends HttpServlet {
         
         if(adresse != null){
         	utilisateur = ofy().load().type(Utilisateur.class).id(reveil.getUtilisateur()).now();
-        	utilisateur.setHeure_reveil();
-            req.setAttribute("heure_reveil", utilisateur.getHeure_reveil());
-
+        	utilisateur.setDate_reveil();
+            req.setAttribute("heure_reveil", utilisateur.getDate_reveil());
+            req.setAttribute("musique", utilisateur.getMusique());
         }
         else{
         	req.setAttribute("erreur", "Aucune addresse gmail liée avec cet appareil");

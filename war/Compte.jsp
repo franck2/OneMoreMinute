@@ -257,7 +257,7 @@
 		 				 </div>
 		 			</div>
 		 			<label>Id de votre véveil</label>
-		 			<input type=text" id="reveil" name="reveil" value="${client.reveil}">
+		 			<input type="text" id="reveil" name="reveil" value="${client.reveil}">
 		 			</div>
                                    	
                                    
@@ -271,7 +271,22 @@
 		 			<div class="col-sm-12">
 		 				<input type="button" value="enregistrer" onclick="javascript:calculate()">
 		 			</div>
-		 		</div>         
+		 		</div> 
+
+					<select id="musique" name="musique" size="1">
+						<option selected>dragon ball
+						<option>fire-emblem-theme
+						<option>Game_Of_Thrones
+						<option>gerudo
+						<option>hyrule
+						<option>Marche imperiale
+						<option>smash bros brawl
+						<option>star wars
+						<option>Stargate SG1
+						<option>tetris
+						<option>the legend of zelda
+						<option>The walking dead
+					</select>        
                
               </form>
 			</article>
@@ -369,11 +384,20 @@
 
     <script>
 
-    window.onload = function(){       
+	window.onload = function(){       
     	jQuery('#${client.trajet.transport}').prop('checked', 'checked');
-    }
-    
+    	comboBox=document.getElementById("musique");
+        if (comboBox) {
 
+            for(var i=0;i<=comboBox.length-1;i=i+1) {
+                var text=comboBox.options[i].value;
+                if("${client.musique}"==text){
+                    comboBox.selectedIndex=i;
+                    break;
+                }
+            }
+        }
+	}
 	
 	</script>
 	  <script src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&language=fr"></script>

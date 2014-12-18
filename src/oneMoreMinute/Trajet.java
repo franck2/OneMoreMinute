@@ -1,31 +1,21 @@
 package oneMoreMinute;
 
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import com.googlecode.objectify.annotation.*;
+
 @Entity
 public class Trajet{
 	
@@ -300,15 +290,18 @@ public class Trajet{
 			else{
 				JSONObject rep = (JSONObject) reponses.get(0);
 				
-				Calendar cc = new GregorianCalendar();
+				Calendar cal = new GregorianCalendar();
 				int diff = 0;
+				
+				//si le depart doit se faire le jour d'avant l'arriver on met diff a -1
 				if((rep.get("heureDepart").toString()).compareTo(rep.get("heureArrivee").toString()) > 0){
 					diff = -1;
 				}
-				cc.set(Integer.parseInt(this.heure_arrivee.substring(0, 4)), (Integer.parseInt(this.heure_arrivee.substring(5, 7))-1), (Integer.parseInt(this.heure_arrivee.substring(8))+diff));
+				
+				cal.set(Integer.parseInt(this.heure_arrivee.substring(0, 4)), (Integer.parseInt(this.heure_arrivee.substring(5, 7))-1), (Integer.parseInt(this.heure_arrivee.substring(8))+diff));
 				NumberFormat formatter = new DecimalFormat("00");
 				
-				this.heure_depart = (cc.get(cc.YEAR)) + "-" + formatter.format((cc.get(cc.MONTH)+1)) + "-" + formatter.format(cc.get(cc.DATE))+" - "+rep.get("heureDepart").toString();
+				this.heure_depart = (cal.get(cal.YEAR)) + "-" + formatter.format((cal.get(cal.MONTH)+1)) + "-" + formatter.format(cal.get(cal.DATE))+" - "+rep.get("heureDepart").toString();
 
 				this.heure_arrivee += " - " + rep.get("heureArrivee").toString();
 				this.detail_Trajet = "Durée du trajet: " + rep.get("duree").toString() + "\n<br/>";
