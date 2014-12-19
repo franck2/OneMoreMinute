@@ -6,15 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+    <link href="css/heure.css" rel="stylesheet">
+
 </head>
 <body>
-<input type="button" id="but">
-
-<audio id="myAudio" src="musiques/${musique }.ogg"></audio>
-	<c:choose>
+<div id="clock" class="dark">
+    <div class="display">
+        <div class="weekdays"></div>
+        <div class="ampm"></div>
+        <div class="alarm"></div>
+        <div class="digits"></div>
+        
+    </div>
+    	<c:choose>
 		<c:when test="${erreur!=null }">
-			<p>${erreur}</p>
-			<p>Pour utiliser ce reveil entrez ce code: "${id }" dans votre compte.</p>
+			<p>Entrer le code: <strong>${id }</strong></p>
 		</c:when>
 		<c:when test="${heure_reveil!=null }">
 			<p>Prochain réveil: ${heure_reveil}</p>
@@ -23,6 +29,23 @@
 			<p>Grasse matinée jusqu'a nouvel ordre !</p>
 		</c:otherwise>
     </c:choose>
+</div>
+
+<div class="zero">
+    <span class="d1"></span>
+    <span class="d2"></span>
+    <span class="d3"></span>
+    <span class="d4"></span>
+    <span class="d5"></span>
+    <span class="d6"></span>
+    <span class="d7"></span>
+</div>
+
+
+
+
+<audio id="myAudio" src="musiques/${musique }.ogg"></audio>
+
             <input type="hidden" id="heure_reveil" name="heure_reveil" value ="${heure_reveil }"/>
     
 	<form method="post" name=form" action="ServletReveil">
@@ -31,5 +54,7 @@
 	</form>
 	<script src="js/jquery.js"></script>
 	<script src="js/reveil.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<script src="js/heure.js"></script>
 </body>
 </html>

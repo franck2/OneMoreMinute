@@ -23,13 +23,13 @@ function stopAlarme(){
 function regleAlarme(){
 
 	var date_reveil_value = document.getElementById("heure_reveil").value;
-	var date_rev = date_reveil_value.split(" - ")[0];
-	var heure_rev = date_reveil_value.split(" - ")[1];
-	var date_reveil = new Date(date_rev.split("/")[2], date_rev.split("/")[1]-1, date_rev.split("/")[0], heure_rev.split(":")[0], heure_rev.split(":")[1]);
-	var now = new Date();
-	console.log(date_reveil, now);
-	alert(date_reveil.getTime() - now.getTime());
-	setTimeout(startAlarm, date_reveil.getTime() - now.getTime());
+	if(date_reveil_value != ""){
+		var date_rev = date_reveil_value.split(" - ")[0];
+		var heure_rev = date_reveil_value.split(" - ")[1];
+		var date_reveil = new Date(date_rev.split("/")[2], date_rev.split("/")[1]-1, date_rev.split("/")[0], heure_rev.split(":")[0], heure_rev.split(":")[1]);
+		var now = new Date();
+		setTimeout(startAlarm, date_reveil.getTime() - now.getTime());
+	}
 }
 
 
