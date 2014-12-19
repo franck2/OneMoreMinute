@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <title>One More Minute</title>
+    <title>One More Time</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" type="image/x-icon" href="">
@@ -29,7 +29,7 @@
 
 <body>
     <!-- navbar navbar-time -->
-    <nav class="navbar navbar-time navbar-static-top">
+    <nav class="navbar navbar-time navbar-fixed-top">
         <div class="container">
             <header class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,7 +37,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">One More <span>Minute</span></a>
+                <a class="navbar-brand" href="#">One More <span>Time</span></a>
             </header> <!-- navbar-header -->
 
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
@@ -48,36 +48,20 @@
                  
                 </ul> <!-- navbar-nav -->
 
-                 <ul class="nav navbar-nav navbar-right">
-                 
-                 
-                 	<% if (userService.getCurrentUser() == null) { %>
-						<p><a href="<%= userService.createLoginURL("/") %>">Se connecter</a></p>
-					<% }
-					else { %>
-		
-		 				<li>
-                        	
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
-                            
-                      </li>
-                      <li>
-                      <a href="<%= userService.createLogoutURL("/") %>" class="btn btn-default"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>Déconnexion</a>
-                      
-                      </li>
-					<% 	} %>
-                   
-                   
-                </ul>
-
-
-
+                 <div class="nav navbar-nav navbar-right">
+                 	
+                 		<% if (userService.getCurrentUser() != null) { %>
+								<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
+								<span></span><a href="<%= userService.createLogoutURL("/") %>">Déconnexion</a></span>
+						<% } %>
+                 		
+                </div>
             </div><!--navbar-collapse -->
         </div> <!--container -->
     </nav> <!-- navbar-time -->
 
     <!-- Carousel Home -->
-    <div class="wrap-home-header">
+    <div class="wrap-home-header2">
         <div class="container">
             <div class="lcd">
                
@@ -106,7 +90,7 @@
   													<div class="panel-body">
    											
    														 <div class="trajet">${client.trajet.detail_Trajet}</div>
-														<c:if test="${client.calendrier.date_reveil==null }">
+														<c:if test="${client.calendrier.heure_reveil==null }">
 															<p>Aucun calendrier de choisi, en choisir un pour avoir un reveil</p>
 														</c:if>
    											
@@ -126,7 +110,7 @@
                              <div class="row">
                                 <div class="col-md-12">
                                 	<form action="/Compte" method="GET">
-										<input type="submit" value="Modifier Compte">
+										<button type="submit" class="btn btn-success">Modifier Compte</button>
 									</form>
                                 
                                 </div>
