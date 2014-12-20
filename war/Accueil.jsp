@@ -129,7 +129,7 @@
             <p>Web & Cloud 2014-2015</p>
         </div>
     </footer>
-
+    
      <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
 

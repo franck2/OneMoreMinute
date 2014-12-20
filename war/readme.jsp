@@ -56,7 +56,6 @@
                 
                  <% } %> 
                     
-                 
                 </ul> <!-- navbar-nav -->
 
                  <div class="nav navbar-nav navbar-right">
@@ -88,7 +87,7 @@
                                 	<p>Elle a été réalisée Par:
                                 	<ul>
                                 	<li>Franck Boncler</li>
-                                	<li>Damin Mausson</li>
+                                	<li>Damien Mausson</li>
                                 	<li>Roland Houssou</li>
                                 	</ul>
                                 	
