@@ -255,8 +255,10 @@ strong {
     background-position: top center; 
     background-repeat: repeat-y;
     background-size: cover !important;
-    height:608px;
-    padding-top:10%;
+    height:614px;
+    margin-top:50px;
+   
+   
     
      
 }
@@ -285,7 +287,10 @@ strong {
     overflow-y:auto; 
 }
 
-
+.readme{
+	background-color: #cccccc;
+	font-size: 1.2em;
+}
 
 #affichehome  h2 {
     color: #5fc3ff;

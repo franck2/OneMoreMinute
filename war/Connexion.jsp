@@ -29,7 +29,7 @@
 
 <body>
     <!-- navbar navbar-time -->
-    <nav class="navbar navbar-time navbar-static-top">
+    <nav class="navbar navbar-time navbar-fixed-top">
         <div class="container">
             <header class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,8 +43,8 @@
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
                 <ul class="nav navbar-nav navbar-nav-time ">
                    
-                    <li><a href="#">Github</a></li>
-                    <li><a href="#">Readme</a></li>
+                    <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>
+                    <li><a href="readme.jsp">Readme</a></li>
                  
                 </ul> <!-- navbar-nav -->
 
@@ -60,7 +60,7 @@
         <div class="container">
             <div class="lcd">
                
-                <section id="affiche-home" >
+                <section id="affichehome" >
                   
                         <article class="item active">
                             <div class="row">
@@ -71,7 +71,7 @@
                                                 	
                                                 	<div class=" col-sm-offset-3">
                                                 	
-														<a href="<%= userService.createLoginURL("/Accueil.jsp") %>"  class=" btn btn-warning btn-lg btn-bolck col-md-8">Click Here</a>
+														<a href="<%= userService.createLoginURL("/Accueil.jsp") %>"  class=" btn btn-warning btn-lg btn-bolck col-md-8">Sign In</a>
 													
                                                 	</div>
                                                 	

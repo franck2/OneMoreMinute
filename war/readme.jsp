@@ -42,9 +42,20 @@
 
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
                 <ul class="nav navbar-nav navbar-nav-time ">
-                    <li class="active"><a href="Accueil.jsp">Accueil</a></li>
-                     <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>>
-                    <li><a href="readme.jsp">Readme</a></li>
+                
+                <% if (userService.getCurrentUser() != null) { %>
+							 <li ><a href="Accueil.jsp">Accueil</a></li>
+							  <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>>
+                    		 <li><a href="readme.jsp">Readme</a></li>	
+				<% }else { %>
+                			
+						<li><a href="https://github.com/franck2/OneMoreMinute">Github</a></li>>
+                    	<li><a href="readme.jsp">Readme</a></li>
+                    	<li ><a href="<%= userService.createLoginURL("/Accueil.jsp") %>">Sign In</a></li>	
+                
+                
+                 <% } %> 
+                    
                  
                 </ul> <!-- navbar-nav -->
 
@@ -54,6 +65,7 @@
 								<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
 								<span></span><a href="<%= userService.createLogoutURL("/") %>">Déconnexion</a></span>
 						<% } %>
+						
                  		
                 </div>
             </div><!--navbar-collapse -->
@@ -70,51 +82,23 @@
                         <article class="item active">
                             <div class="row">
                                 <div class="col-md-12">
+                                 <div class="container readme">
+                                	<p>Cette application permet....</p>
+                                	
+                                	<p>Elle a été réalisée Par:
+                                	<ul>
+                                	<li>Franck Boncler</li>
+                                	<li>Damin Mausson</li>
+                                	<li>Roland Houssou</li>
+                                	</ul>
+                                	
+                                	</p>
                                 
-                                	<c:choose>
-										<c:when test="${client.trajet.detail_Trajet==null }">
-											<p>Aucun itinéraire de calculé, choisir une adresse de départ et une adresse d'arrivée pour avoir un itinéraire</p>
-										</c:when>
-										<c:otherwise>
-										
-											<div class="panel panel-info ">
-  
-  													<div class="panel-heading">
-  														<div class="row">
-                                							<div class="col-md-6"><p>Arrivée: ${client.trajet.heure_arrivee }</p></div>
-                                							<div class="col-md-6"><p>Départ: ${client.trajet.heure_depart }</p></div>
-                                						</div>
-  														
-  													</div>
-  										
-  													<div class="panel-body">
-   											
-   														 <div class="trajet">${client.trajet.detail_Trajet}</div>
-														<c:if test="${client.calendrier.heure_reveil==null }">
-															<p>Aucun calendrier de choisi, en choisir un pour avoir un reveil</p>
-														</c:if>
-   											
-   											
-  													</div>
-
- 
-												</div>
-										
-											</c:otherwise>
-									</c:choose>
-                                
-                           
+                           </div>
                                 </div>
                                 
                             </div>
-                             <div class="row">
-                                <div class="col-md-12">
-                                	<form action="/Compte" method="GET">
-										<button type="submit" class="btn btn-success">Modifier Compte</button>
-									</form>
-                                
-                                </div>
-                             </div>
+                             
                         </article>
                    
                 </section> <!-- affiche-home -->

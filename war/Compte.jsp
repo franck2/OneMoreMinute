@@ -42,7 +42,7 @@
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
                 <ul class="nav navbar-nav navbar-nav-time ">
                     <li class="active"><a href="Accueil.jsp">Accueil</a></li>
-                   <li><a href="#">Github</a></li>
+                   <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>
                     <li><a href="#">Readme</a></li>
                  
                 </ul> <!-- navbar-nav -->
@@ -259,21 +259,21 @@
                 
                 </div>
                 
-                
+                 <div class="row">
                 <div class="col-sm-12">
 		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Parametrage du Réveil</div>
 		 							<div class="panel-body">
 		 							<div class=row">
 		 								<div class="form-group col-sm-6">
-      										<label class="col-sm-6 control-label">ID du Réveil</label>
-      										<div class="col-sm-6">
+      										<label class="col-sm-5 control-label">ID du Réveil</label>
+      										<div class="col-sm-7">
          										<input type="text" id="reveil" name="reveil" class="form-control"  value="">
       										</div>
    										</div>
 		 								<div class="form-group col-sm-6">
-      										<label class="col-sm-6 control-label">Votre Sonnerie</label>
-      										<div class="col-sm-6">
+      										<label class="col-sm-5 control-label">Votre Sonnerie</label>
+      										<div class="col-sm-7">
          										<select id="musique" name="musique" class="form-control">
 													<option selected>dragon ball
 													<option>fire-emblem-theme
@@ -297,19 +297,10 @@
 		 						</div>
 		 					</div>
                 
+                		</div>
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+          
                  <div class="row">
 		 			<div class="col-sm-12">
 		 				<button type="button" class="btn btn-info" onclick="javascript:calculate()">enregistrer</button>
