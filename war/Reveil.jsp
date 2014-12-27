@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
     <link href="css/heure.css" rel="stylesheet">
+    <link href="css/timeTo.css" rel="stylesheet">
 
 </head>
 <body>
@@ -16,19 +17,23 @@
         <div class="ampm"></div>
         <div class="alarm"></div>
         <div class="digits"></div>
-        
-    </div>
-    	<c:choose>
+       <div class="cpt"> 
+            	<c:choose>
 		<c:when test="${erreur!=null }">
 			<p>Entrer le code: <strong>${id }</strong></p>
 		</c:when>
 		<c:when test="${heure_reveil!=null }">
-			<p>Prochain réveil: ${heure_reveil}</p>
+			<p>Prochain réveil: <strong>${heure_reveil}</strong></p>
 		</c:when>
 		<c:otherwise>
 			<p>Grasse matinée jusqu'a nouvel ordre !</p>
 		</c:otherwise>
     </c:choose>
+    <div id="countdown" align="center"></div>
+    </div>
+    </div>
+
+    
 </div>
 
 <div class="zero">
@@ -43,8 +48,7 @@
 
 
 
-
-<audio id="myAudio" src="musiques/${musique }.ogg"></audio>
+<audio id="myAudio" src="musiques/${musique }.ogg" loop></audio>
 
             <input type="hidden" id="heure_reveil" name="heure_reveil" value ="${heure_reveil }"/>
     
@@ -53,8 +57,10 @@
 	
 	</form>
 	<script src="js/jquery.js"></script>
-	<script src="js/reveil.js"></script>
+	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<script src="js/timeTo.js"></script>
 	<script src="js/heure.js"></script>
+	<script src="js/reveil.js"></script>
 </body>
 </html>

@@ -21,14 +21,26 @@ function stopAlarme(){
 //jj/mm/aaaa - hh:nn
 
 function regleAlarme(){
-
-	var date_reveil_value = document.getElementById("heure_reveil").value;
+//document.getElementById("heure_reveil").value
+	var date_reveil_value = "20/12/2014 - 10:56";
 	if(date_reveil_value != ""){
 		var date_rev = date_reveil_value.split(" - ")[0];
 		var heure_rev = date_reveil_value.split(" - ")[1];
 		var date_reveil = new Date(date_rev.split("/")[2], date_rev.split("/")[1]-1, date_rev.split("/")[0], heure_rev.split(":")[0], heure_rev.split(":")[1]);
 		var now = new Date();
 		setTimeout(startAlarm, date_reveil.getTime() - now.getTime());
+		$(".alarm").addClass("active");
+		if(date_reveil>new Date()){
+			$("#countdown").timeTo({
+				timeTo : date_reveil,
+				theme: "black",
+				displayCaptions: true,
+				lang: "fr",
+				fontSize: 40,
+				
+				
+			});
+		}
 	}
 }
 
