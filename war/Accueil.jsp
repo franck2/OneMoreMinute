@@ -42,7 +42,7 @@
 
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
                 <ul class="nav navbar-nav navbar-nav-time ">
-                    <li class="active"><a href="Accueil.jsp">Accueil</a></li>
+                    <li class="active"><a href="Accueil">Accueil</a></li>
                      <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>>
                     <li><a href="readme.jsp">Readme</a></li>
                  
@@ -70,7 +70,6 @@
                         <article class="item active">
                             <div class="row">
                                 <div class="col-md-12">
-                                
                                 	<c:choose>
 										<c:when test="${client.trajet.detail_Trajet==null }">
 											<p>Aucun itinéraire de calculé, choisir une adresse de départ et une adresse d'arrivée pour avoir un itinéraire</p>
@@ -90,7 +89,7 @@
   													<div class="panel-body">
    											
    														 <div class="trajet">${client.trajet.detail_Trajet}</div>
-														<c:if test="${client.calendrier.heure_reveil==null }">
+														<c:if test="${client.calendrier.date_reveil==null }">
 															<p>Aucun calendrier de choisi, en choisir un pour avoir un reveil</p>
 														</c:if>
    											

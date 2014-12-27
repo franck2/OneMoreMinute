@@ -41,7 +41,7 @@
 
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
                 <ul class="nav navbar-nav navbar-nav-time ">
-                    <li class="active"><a href="Accueil.jsp">Accueil</a></li>
+                    <li class="active"><a href="Accueil">Accueil</a></li>
                    <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>
                     <li><a href="#">Readme</a></li>
                  
@@ -51,7 +51,7 @@
                  	
                  		<% if (userService.getCurrentUser() != null) { %>
 								<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
-								<span></span><a href="<%= userService.createLogoutURL("/") %>">Déconnexion</a></span>
+								<span></span><a href="<%= userService.createLogoutURL("/") %>">Dï¿½connexion</a></span>
 						<% } %>
                  		
                 </div>
@@ -132,7 +132,7 @@
 		 							<div class="panel-body">
 		 							<div class=row">
 		 							<div class="form-group col-sm-6">
-      									<label class="col-sm-2 control-label">Départ</label>
+      									<label class="col-sm-2 control-label">Dï¿½part</label>
       									<div class="col-sm-10">
          									<input type="text" id="depart" name="depart" value="${client.trajet.nom_depart}" class="form-control" >
       									</div>
@@ -144,7 +144,7 @@
    									</label>
    									</div>
 		 							<div class="form-group col-sm-6">
-      									<label class="col-sm-2 control-label">Arrivée</label>
+      									<label class="col-sm-2 control-label">Arrivï¿½e</label>
       									<div class="col-sm-10">
          									<input type="text" id="arrivee" name="arrivee" value="${client.trajet.nom_arrivee}" class="form-control" >
       									</div>
@@ -180,7 +180,7 @@
       										<input type="radio" name="transport" id="voiture" value="voiture"> En Voiture
    										</label>
    										 <label class="checkbox-inline">
-      										<input type="radio" name="transport" id="velo" value="velo">A Vélo
+      										<input type="radio" name="transport" id="velo" value="velo">A Vï¿½lo
    										</label>
    										 <label class="checkbox-inline">
       										<input type="radio" name="transport" id="tan" value="tan"> Avec la TAN
@@ -261,11 +261,11 @@
                  <div class="row">
                 <div class="col-sm-12">
 		 						<div class="panel panel-info">
-		 							<div class="panel-heading">Parametrage du Réveil</div>
+		 							<div class="panel-heading">Parametrage du Rï¿½veil</div>
 		 							<div class="panel-body">
 		 							<div class=row">
 		 								<div class="form-group col-sm-6">
-      										<label class="col-sm-5 control-label">ID du Réveil</label>
+      										<label class="col-sm-5 control-label">ID du Rï¿½veil</label>
       										<div class="col-sm-7">
          										<input type="text" id="reveil" name="reveil" class="form-control"  value="">
       										</div>

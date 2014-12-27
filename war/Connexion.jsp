@@ -71,7 +71,7 @@
                                                 	
                                                 	<div class=" col-sm-offset-3">
                                                 	
-														<a href="<%= userService.createLoginURL("/Accueil.jsp") %>"  class=" btn btn-warning btn-lg btn-bolck col-md-8">Sign In</a>
+														<a href="<%= userService.createLoginURL("/Accueil") %>"  class=" btn btn-warning btn-lg btn-bolck col-md-8">Sign In</a>
 													
                                                 	</div>
                                                 	
