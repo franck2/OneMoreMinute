@@ -58,13 +58,19 @@ strong {
 }
 
 
-
 /* Buttons */
 
 .btn {
 
 }
-.btncon{margin-top:5%;}
+
+.msgerror{
+	color: red;
+    
+    font-family: 'Roboto Condensed', sans-serif;
+	
+}
+
 .btn-default {
     border-color: #4da0d1;
     background-color: #eee;
@@ -103,7 +109,7 @@ strong {
 .btn-primary:focus {
 }
 
-.navbar-nav-time{margin-left:15%;}
+
 
 
 /* navbar navbar-time */
@@ -120,6 +126,7 @@ strong {
     
     border-bottom: solid 2px #5ec2ff;
     margin-bottom: 0;
+    
     
 }
 
@@ -141,10 +148,11 @@ strong {
     text-transform: uppercase;
     font-size: 2em;
     font-weight: 400;
-    padding: 13px 0 11px 46px;
+    padding: 13px 0 11px 10px;
     font-weight: 300;
     margin-left: 10px !important;
     font-family: 'Roboto Condensed', sans-serif;
+    margin-right: 50px;
 }
 
 .navbar-time .navbar-brand  > span {
@@ -206,7 +214,26 @@ strong {
   background-color: #cccccc;
 }
 
+.navbar-nav-time{margin-left:15px;}
 
+.navbar-right{padding-top:20px;}
+
+.navbar-right .user{margin-right:5px;}
+
+.navbar-right a:hover{
+	color: red;
+   	text-decoration: none;
+}
+   	
+.navbar-right a{
+	color: red;
+    font-size: 1.2em;
+    font-weight: 400;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+    
+}  	
+    
 /* Carousel Home */
 /* ------------------------------------------------------------------ */
 
@@ -217,7 +244,23 @@ strong {
     background-position: top center; 
     background-repeat: repeat-y;
     background-size: cover !important;
-    height:608px;  
+    height:100%;
+     margin-top:50px;
+      
+}
+.wrap-home-header2 {
+    padding: 20px 0;
+    background-color: #082a47;
+    background-image: url('../img/blur.png');
+    background-position: top center; 
+    background-repeat: repeat-y;
+    background-size: cover !important;
+    height:614px;
+    margin-top:50px;
+   
+   
+    
+     
 }
 
 .lcd {
@@ -227,8 +270,7 @@ strong {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-	height-min:500px;
-	height-max:100%;
+	height:100%;
 	margin-bottom:3%;
 	margin-top:3%;
    
@@ -245,7 +287,10 @@ strong {
     overflow-y:auto; 
 }
 
-.clock{margin-top:10%;margin-bottom:8%;}
+.readme{
+	background-color: #cccccc;
+	font-size: 1.2em;
+}
 
 #affichehome  h2 {
     color: #5fc3ff;
@@ -360,32 +405,4 @@ strong {
     margin-bottom: 0;
 }
 
-.funnyText span.left, 
-.funnyText span.right,
-.funnyText span.top,
-.funnyText span.bottom {
-    position:absolute;
-}
-.funnyText .charWrap {
-    transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;/** Chrome & Safari **/
-    -moz-transition: all 0.4s ease-in-out;/** Firefox **/
-    -o-transition: all 0.4s ease-in-out;/** Opera **/
-}
-.funnyText .charWrap .top {
-    top:0;
-}
-.funnyText .charWrap .left {
-    left:0;
-}
-.funnyText .charWrap .right {
-    right:0;
-}
-.funnyText .charWrap .bottom {
-    bottom:0;
-}
-.funnyText .character {
-    overflow:hidden;
-    display:inline-block;
-}
 
