@@ -288,10 +288,13 @@ strong {
 }
 
 .readme{
-	background-color: #cccccc;
+	background-color: #0080c0;
 	font-size: 1.2em;
+	color: #ffffff;
 }
-
+.itineraire{font-size: 1.2em;
+	color: #ff8000;}
+	
 #affichehome  h2 {
     color: #5fc3ff;
     line-height: 120%;

@@ -171,7 +171,7 @@ public class Trajet{
 			reponses = (JSONArray) g.parse(reponse);
 			
 			if(reponses.size() == 0){
-				reponse = "Aucune adresse trouvÃ©e pour "+adresse;
+				reponse = "Aucune adresse trouvée pour "+adresse;
 			}
 			else{
 				JSONObject rep = (JSONObject) reponses.get(0);
@@ -208,7 +208,7 @@ public class Trajet{
 
 		} catch (ParseException | IOException e) {
 			// TODO Auto-generated catch block
-			reponse="Une erreur est survenue sur le site de la tan, veuillez rÃ©esayer ou recommencer plus tard.";
+			reponse="Une erreur est survenue sur le site de la tan, veuillez réesayer ou recommencer plus tard.";
 		}
 		return reponse;
 	}
@@ -304,26 +304,26 @@ public class Trajet{
 				this.heure_depart = (cal.get(cal.YEAR)) + "-" + formatter.format((cal.get(cal.MONTH)+1)) + "-" + formatter.format(cal.get(cal.DATE))+" - "+rep.get("heureDepart").toString();
 
 				this.heure_arrivee += " - " + rep.get("heureArrivee").toString();
-				this.detail_Trajet = "DurÃ©e du trajet: " + rep.get("duree").toString() + "\n<br/>";
+				this.detail_Trajet = "Durée du trajet: " + rep.get("duree").toString() + "\n<br/>";
 				
 				JSONArray etapes = (JSONArray) rep.get("etapes");
 				
 				for(int i = 0; i < etapes.size(); i++){
 					JSONObject x = (JSONObject) etapes.get(i);
 					if((boolean) x.get("marche")){
-						this.detail_Trajet += x.get("heureDepart") + " Rejoindre Ã  pied: " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
+						this.detail_Trajet += x.get("heureDepart") + " Rejoindre à  pied: " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
 					}
 						
 					else{
-						this.detail_Trajet += x.get("heureDepart") +" Prendre la ligne : " + ((JSONObject) x.get("ligne")).get("numLigne") + " en direction de " + ((JSONObject) x.get("ligne")).get("terminus") + ". Descendre Ã  l'arret " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
+						this.detail_Trajet += x.get("heureDepart") +" Prendre la ligne : " + ((JSONObject) x.get("ligne")).get("numLigne") + " en direction de " + ((JSONObject) x.get("ligne")).get("terminus") + ". Descendre à  l'arret " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
 					}
 				}
 
 			}
-			message_iti = "ItinÃ©raire ajoutÃ© avec succÃ¨s";
+			message_iti = "Itinéraire ajouté avec succès";
 		}
 		catch (IOException | ParseException e2) {
-			message_iti = "ERREUR un problÃ¨me est survenu, veuillez reesayer";
+			message_iti = "ERREUR un problème est survenu, veuillez reesayer";
 		} 
 		return message_iti;
 	}
@@ -381,7 +381,7 @@ public class Trajet{
 			this.nom_depart = depart;
 			String duree =  extraire_itineraire(itineraire);
 			calculer_heure_depart(duree, heure);
-			return "Itineraire bien enregistrÃ©";
+			return "Itineraire bien enregistré";
 		}
 		else{
 			this.nom_arrivee = null;

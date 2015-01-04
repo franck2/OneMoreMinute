@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ page import="com.google.appengine.api.users.*" %>
     <% UserService userService = UserServiceFactory.getUserService(); %>
@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav navbar-nav-time ">
                     <li class="active"><a href="Accueil">Accueil</a></li>
                    <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>
-                    <li><a href="#">Readme</a></li>
+                   <li><a href="readme.jsp">Readme</a></li>
                  
                 </ul> <!-- navbar-nav -->
 
@@ -51,7 +51,7 @@
                  	
                  		<% if (userService.getCurrentUser() != null) { %>
 								<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
-								<span></span><a href="<%= userService.createLogoutURL("/") %>">D�connexion</a></span>
+								<span></span><a href="<%= userService.createLogoutURL("/") %>">Deconnexion</a></span>
 						<% } %>
                  		
                 </div>
@@ -75,7 +75,7 @@
 		 				<div class="row">
 		 					<div class="col-sm-12">
 		 						<div class="panel panel-info">
-		 							<div class="panel-heading">Gestion du temps</div>
+		 							<div class="panel-heading">Gestion du temps(en minutes)</div>
 		 							<div class="panel-body">
 		 							<div class=row">
 		 								<div class="form-group col-sm-6">
@@ -132,7 +132,7 @@
 		 							<div class="panel-body">
 		 							<div class=row">
 		 							<div class="form-group col-sm-6">
-      									<label class="col-sm-2 control-label">D�part</label>
+      									<label class="col-sm-2 control-label">Départ</label>
       									<div class="col-sm-10">
          									<input type="text" id="depart" name="depart" value="${client.trajet.nom_depart}" class="form-control" >
       									</div>
@@ -144,7 +144,7 @@
    									</label>
    									</div>
 		 							<div class="form-group col-sm-6">
-      									<label class="col-sm-2 control-label">Arriv�e</label>
+      									<label class="col-sm-2 control-label">Arrivée</label>
       									<div class="col-sm-10">
          									<input type="text" id="arrivee" name="arrivee" value="${client.trajet.nom_arrivee}" class="form-control" >
       									</div>
@@ -180,7 +180,7 @@
       										<input type="radio" name="transport" id="voiture" value="voiture"> En Voiture
    										</label>
    										 <label class="checkbox-inline">
-      										<input type="radio" name="transport" id="velo" value="velo">A V�lo
+      										<input type="radio" name="transport" id="velo" value="velo">A Vélo
    										</label>
    										 <label class="checkbox-inline">
       										<input type="radio" name="transport" id="tan" value="tan"> Avec la TAN
@@ -261,11 +261,11 @@
                  <div class="row">
                 <div class="col-sm-12">
 		 						<div class="panel panel-info">
-		 							<div class="panel-heading">Parametrage du R�veil</div>
+		 							<div class="panel-heading">Parametrage du Réveil</div>
 		 							<div class="panel-body">
 		 							<div class=row">
 		 								<div class="form-group col-sm-6">
-      										<label class="col-sm-5 control-label">ID du R�veil</label>
+      										<label class="col-sm-5 control-label">ID du Réveil</label>
       										<div class="col-sm-7">
          										<input type="text" id="reveil" name="reveil" class="form-control"  value="">
       										</div>
