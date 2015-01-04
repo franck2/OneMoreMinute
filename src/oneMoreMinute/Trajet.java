@@ -171,7 +171,7 @@ public class Trajet{
 			reponses = (JSONArray) g.parse(reponse);
 			
 			if(reponses.size() == 0){
-				reponse = "Aucune adresse trouvée pour "+adresse;
+				reponse = "Aucune adresse trouvï¿½e pour "+adresse;
 			}
 			else{
 				JSONObject rep = (JSONObject) reponses.get(0);
@@ -208,7 +208,7 @@ public class Trajet{
 
 		} catch (ParseException | IOException e) {
 			// TODO Auto-generated catch block
-			reponse="Une erreur est survenue sur le site de la tan, veuillez réesayer ou recommencer plus tard.";
+			reponse="Une erreur est survenue sur le site de la tan, veuillez rï¿½esayer ou recommencer plus tard.";
 		}
 		return reponse;
 	}
@@ -310,26 +310,26 @@ public class Trajet{
 				this.heure_depart = (cal.get(cal.YEAR)) + "-" + formatter.format((cal.get(cal.MONTH)+1)) + "-" + formatter.format(cal.get(cal.DATE))+" - "+rep.get("heureDepart").toString();
 
 				this.heure_arrivee += " - " + rep.get("heureArrivee").toString();
-				this.detail_Trajet = "Durée du trajet: " + rep.get("duree").toString() + "\n<br/>";
+				this.detail_Trajet = "Durï¿½e du trajet: " + rep.get("duree").toString() + "\n<br/>";
 				
 				JSONArray etapes = (JSONArray) rep.get("etapes");
 				
 				for(int i = 0; i < etapes.size(); i++){
 					JSONObject x = (JSONObject) etapes.get(i);
 					if((boolean) x.get("marche")){
-						this.detail_Trajet += x.get("heureDepart") + " Rejoindre à  pied: " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
+						this.detail_Trajet += x.get("heureDepart") + " Rejoindre ï¿½ pied: " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
 					}
 						
 					else{
-						this.detail_Trajet += x.get("heureDepart") +" Prendre la ligne : " + ((JSONObject) x.get("ligne")).get("numLigne") + " en direction de " + ((JSONObject) x.get("ligne")).get("terminus") + ". Descendre à  l'arret " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
+						this.detail_Trajet += x.get("heureDepart") +" Prendre la ligne : " + ((JSONObject) x.get("ligne")).get("numLigne") + " en direction de " + ((JSONObject) x.get("ligne")).get("terminus") + ". Descendre ï¿½ l'arret " + ((JSONObject) x.get("arretStop")).get("libelle") + " " + x.get("duree") + "\n<br/>";
 					}
 				}
 
 			}
-			message_iti = "Itinéraire ajouté avec succès";
+			message_iti = "Itinï¿½raire ajoutï¿½ avec succï¿½s";
 		}
 		catch (IOException | ParseException e2) {
-			message_iti = "ERREUR un problème est survenu, veuillez reesayer";
+			message_iti = "ERREUR un problï¿½me est survenu, veuillez reesayer";
 		} 
 		}
 		return message_iti;
@@ -388,7 +388,7 @@ public class Trajet{
 			this.nom_depart = depart;
 			String duree =  extraire_itineraire(itineraire);
 			calculer_heure_depart(duree, heure);
-			return "Itineraire bien enregistré";
+			return "Itineraire bien enregistrï¿½";
 		}
 		else{
 			this.nom_arrivee = null;
@@ -413,14 +413,15 @@ public class Trajet{
 	 * Clacule une heure de depart en fonction d'une heure d'arrivee voulue, et de la duree du trajet
 	 */
 	public void calculer_heure_depart(String duree, String heure){
-
+System.out.println(heure);
+	if(heure!=null){
 		NumberFormat formater = new DecimalFormat("00");
 		int duree_seconde = Integer.parseInt(duree);
 
 		Calendar cc = new GregorianCalendar();
 		cc.set(Integer.parseInt(heure.substring(0, 4)), (Integer.parseInt(heure.substring(5, 7))-1), (Integer.parseInt(heure.substring(8,10))), Integer.parseInt(heure.substring(heure.lastIndexOf(" ")+1, heure.lastIndexOf(":"))), (Integer.parseInt(heure.substring(heure.lastIndexOf(":")+1))-10));
 
-		this.heure_arrivee = cc.get(cc.YEAR) + "-" + cc.get(cc.MONTH) + "-" + cc.get(cc.DATE) + " - " + formater.format(cc.get(cc.HOUR_OF_DAY)) + ":" + formater.format(cc.get(cc.MINUTE));
+		this.heure_arrivee = cc.get(cc.YEAR) + "-" + formater.format((cc.get(cc.MONTH)+1)) + "-" + formater.format(cc.get(cc.DATE)) + " - " + formater.format(cc.get(cc.HOUR_OF_DAY)) + ":" + formater.format(cc.get(cc.MINUTE));
 		
 		int h = duree_seconde/60/60;
 		int m = (duree_seconde-h)/60;
@@ -428,6 +429,10 @@ public class Trajet{
 		cc.add(cc.HOUR, -h);
 		cc.add(cc.MINUTE, -m);
 		this.heure_depart = (cc.get(cc.YEAR)) + "-" + formater.format((cc.get(cc.MONTH)+1)) + "-" + formater.format(cc.get(cc.DATE))+" - "+ formater.format(cc.get(cc.HOUR_OF_DAY)) + ":" + formater.format(cc.get(cc.MINUTE));
-		
+	}
+	else{
+		this.heure_arrivee = null;
+		this.heure_depart = null;
+	}
 	}
 }

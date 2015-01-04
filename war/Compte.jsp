@@ -322,18 +322,16 @@
 
 
     <script>
-    window.onload = function(){
-    	jQuery('#${client.trajet.transport}').prop('checked', 'checked');
-    }
+
     
     window.onload = function(){ 
-    	jQuery('#tan').prop('checked', 'checked');
+    	jQuery('#${client.trajet.transport}').prop('checked', 'checked');
+
     	comboBox=document.getElementById("musique");
         if (comboBox) {
-
             for(var i=0;i<=comboBox.length-1;i=i+1) {
                 var text=comboBox.options[i].value;
-                if("dragon ball"==text){
+                if('${client.musique}'==text){
                     comboBox.selectedIndex=i;
                     break;
                 }

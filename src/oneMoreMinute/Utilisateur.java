@@ -81,7 +81,23 @@ public class Utilisateur {
 
 		public void maj(boolean auj){
 			this.calendrier.maj_date_reveil(auj);
-			this.getTrajet().requeteTrajet(this.getCalendrier().getDate_reveil());
+			if(!trajet.getTransport().equals("tan")){
+				String heure = this.trajet.getHeure_depart();
+				String heure2 = this.trajet.getHeure_arrivee();
+
+				Calendar cc = new GregorianCalendar();
+				cc.set(Integer.parseInt(heure.substring(0, 4)), (Integer.parseInt(heure.substring(5, 7))-1), (Integer.parseInt(heure.substring(8,10))), Integer.parseInt(heure.substring(heure.lastIndexOf(" ")+1, heure.lastIndexOf(":"))), (Integer.parseInt(heure.substring(heure.lastIndexOf(":")+1))-10));
+
+				Calendar cc2 = new GregorianCalendar();
+				cc2.set(Integer.parseInt(heure2.substring(0, 4)), (Integer.parseInt(heure2.substring(5, 7))-1), (Integer.parseInt(heure2.substring(8,10))), Integer.parseInt(heure2.substring(heure2.lastIndexOf(" ")+1, heure2.lastIndexOf(":"))), (Integer.parseInt(heure2.substring(heure2.lastIndexOf(":")+1))-10));
+
+				String duree = (cc2.getTimeInMillis() - cc.getTimeInMillis())/1000+"";
+				this.trajet.calculer_heure_depart(duree, this.getCalendrier().getDate_reveil());
+			}
+			else{
+				this.getTrajet().requeteTrajet(this.getCalendrier().getDate_reveil());
+
+			}
 			this.setDate_reveil();
 		}
 		
