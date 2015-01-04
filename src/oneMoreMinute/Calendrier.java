@@ -85,6 +85,7 @@ public class Calendrier {
 	private Calendrier(){
 		
 	}
+	
 	//methode qui permet de recuperer l'edt et de le mettre dans un objet calendar
 	public Calendar getCalendar(){
 
@@ -112,7 +113,7 @@ public class Calendrier {
 	}
 		
 	//methode qui permet a partir d'un Calendar de trouver le premier evenement qui se deroulera au moins le jour suivant le jour courant
-	public Component prochain_evenement(Calendar c) throws ParseException{
+	public Component prochain_evenement(Calendar c, boolean auj) throws ParseException{
 		
 		Date date = new Date();
 		Component evenement = null;
@@ -120,13 +121,15 @@ public class Calendrier {
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
 		dateFormat.setTimeZone(TimeZone.getDefault());
 		String date_aujourdhui = dateFormat.format(date);
-		
-		/* aujourdhui contient la date du jour courant, date_a_comparer contient un date qui est superieur a
+
+		/* aujourdhui contient la date du jour courant, date_a_comparer contient une date qui est superieur a
 		 * aujourdhui. Elle contiendra le premier evenement apres la date aujourdhui.
 		 */
 		Date aujourdhui, date_a_comparer = null;
 		aujourdhui = dateFormat.parse(date_aujourdhui);
-
+		if(!auj){
+			aujourdhui.setDate(aujourdhui.getDate()-1);
+		}
 		for (Iterator i = c.getComponents().iterator(); i.hasNext();) {
 				
 			  Component component = (Component) i.next();
@@ -134,11 +137,12 @@ public class Calendrier {
 			  if(component.getProperty("TRANSP") == null || !component.getProperty("TRANSP").getValue().equals("TRANSPARENT")){
 				  
 				  String a_comparer = component.getProperty("DTSTART").getValue();
-				  
+				  System.out.println("dac    "+a_comparer+"  "+date_aujourdhui);
+
 				  if (a_comparer.compareTo(date_aujourdhui) > 0 && (evenement == null || a_comparer.compareTo(evenement.getProperty("DTSTART").getValue()) < 0)){
 
 					  date_a_comparer = dateFormat.parse(component.getProperty("DTSTART").getValue());
-					  
+					  System.out.println("dac    "+date_a_comparer);
 					  if((aujourdhui.getMonth() == date_a_comparer.getMonth() && aujourdhui.getDate() < date_a_comparer.getDate()) || (aujourdhui.getMonth() < date_a_comparer.getMonth() && aujourdhui.getYear() == date_a_comparer.getYear()) || aujourdhui.getYear() < date_a_comparer.getYear()){
 						  evenement = component;
 					  }	
@@ -151,16 +155,16 @@ public class Calendrier {
 	/*Methode qui permet en fonction du Calendar passe en parametre de trouver l'heure de debut du prochain evenement.
 	 * Pour cela cette methode utilise la methode prochain_evenement.
 	 */
-	public String heure_de_debut(Calendar c) throws ParseException{
+	public String heure_de_debut(Calendar c, boolean auj) throws ParseException{
 		
-		if(prochain_evenement(c) == null){
+		if(prochain_evenement(c, auj) == null){
 			return null;
 		}
 		else{	
 			
 			NumberFormat formater = new DecimalFormat("00");
 
-			String date = prochain_evenement(c).getProperty("DTSTART").getValue();
+			String date = prochain_evenement(c, auj).getProperty("DTSTART").getValue();
 	
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
 			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+1:00"));
@@ -169,8 +173,26 @@ public class Calendrier {
 			java.util.Calendar calendar = GregorianCalendar.getInstance();
 			calendar.setTime(prochaine_date);
 			date = calendar.get(calendar.YEAR)+"-"+formater.format(calendar.get(calendar.MONTH)+1)+"-"+formater.format(calendar.get(calendar.DATE));
-			date += " "+calendar.get(calendar.HOUR_OF_DAY)+":"+calendar.get(calendar.MINUTE);
+			date += " "+formater.format(calendar.get(calendar.HOUR_OF_DAY))+":"+formater.format(calendar.get(calendar.MINUTE));
 			return date;
+		}
+	}
+	
+	public void maj_date_reveil(boolean auj){
+		if(this.url!=null){
+			Calendar c = getCalendar();
+			String heure = null;
+			if(c!=null){
+				try {
+					heure = heure_de_debut(c, auj);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					heure = null;
+				}
+			}
+		 	if(heure == null || !heure.equals(this.date_reveil)){
+		 		this.date_reveil = heure;
+		 	}
 		}
 	}
 	
@@ -199,7 +221,7 @@ public class Calendrier {
  			   try {
  				   Calendar c = getCalendar();
  				   if(c != null){
- 					   heure = heure_de_debut(c);
+ 					   heure = heure_de_debut(c, true);
  					   message_edt = "Ajout de l'emplois du temps OK";
  					   this.url = url;
  					   message_edt = "EDT ajouté avec succès !";

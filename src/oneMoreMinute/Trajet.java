@@ -254,8 +254,14 @@ public class Trajet{
 	 * Methode qui permet d'avoir un itineraire Tan 
 	 */
 	public String requeteTrajet(String heure){
-		
 		String message_iti = "";
+
+		if(heure==null){
+			this.heure_arrivee = null;
+			this.heure_depart = null;
+			this.detail_Trajet = null;
+		}
+		else{
 		String uri = "https://www.tan.fr/ewp/mhv.php/itineraire/resultat.json";
 		String post = "depart=" + this.code_depart + "&arrive=" + this.code_arrivee + "&type=1" + "&accessible=0" + "&temps=" + heure + "&retour=0";
 		URL url;
@@ -325,6 +331,7 @@ public class Trajet{
 		catch (IOException | ParseException e2) {
 			message_iti = "ERREUR un problème est survenu, veuillez reesayer";
 		} 
+		}
 		return message_iti;
 	}
 
@@ -422,7 +429,5 @@ public class Trajet{
 		cc.add(cc.MINUTE, -m);
 		this.heure_depart = (cc.get(cc.YEAR)) + "-" + formater.format((cc.get(cc.MONTH)+1)) + "-" + formater.format(cc.get(cc.DATE))+" - "+ formater.format(cc.get(cc.HOUR_OF_DAY)) + ":" + formater.format(cc.get(cc.MINUTE));
 		
-		System.out.println(this.heure_arrivee + "  "+this.heure_depart);
-
 	}
 }

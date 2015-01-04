@@ -4,7 +4,7 @@ $(function(){
 	regleAlarme();
 });
 
-setTimeout(function(){window.location.reload();}, 1000* 60 * 60);
+setTimeout(function(){window.location.reload();}, 1000*60);
 
 function startAlarm(e){
 	$("#myAudio")[0].play();
@@ -15,14 +15,14 @@ function startAlarm(e){
 
 function stopAlarme(){	
 	document.getElementById('maj').value="true";
-	window.location.reload();
+	document.forms["form"].submit();
 }
 
 //jj/mm/aaaa - hh:nn
 
 function regleAlarme(){
-//document.getElementById("heure_reveil").value
-	var date_reveil_value = "20/12/2014 - 10:56";
+
+	var date_reveil_value = document.getElementById("heure_reveil").value;
 	if(date_reveil_value != ""){
 		var date_rev = date_reveil_value.split(" - ")[0];
 		var heure_rev = date_reveil_value.split(" - ")[1];

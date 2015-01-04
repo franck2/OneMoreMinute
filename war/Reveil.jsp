@@ -52,9 +52,9 @@
 
             <input type="hidden" id="heure_reveil" name="heure_reveil" value ="${heure_reveil }"/>
     
-	<form method="post" name=form" action="ServletReveil">
-		<input type="hidden" id="maj" value="false">
-	
+	<form method="get" name="form" action="ServletReveil">
+		<input type="hidden" id="maj" name="maj" value="false">
+		<input type="hidden" id="id" name="id" value='${id }'>
 	</form>
 	<script src="js/jquery.js"></script>
 	

@@ -29,24 +29,24 @@ public class ServletReveil extends HttpServlet {
         	reveil = new Reveil(req.getParameter("id"));
             ofy().save().entity(reveil).now();
         }
-        
+    	req.setAttribute("id", reveil.getIdentifiant());
+
         String adresse = reveil.getUtilisateur();
         Utilisateur utilisateur = null;
-        
+
         if(adresse != null){
         	utilisateur = ofy().load().type(Utilisateur.class).id(reveil.getUtilisateur()).now();
-        	utilisateur.setDate_reveil();
+            if(req.getParameter("maj") !=null && req.getParameter("maj").equals("true")){
+            	utilisateur.maj(true);
+                ofy().save().entity(utilisateur).now();
+            }
             req.setAttribute("heure_reveil", utilisateur.getDate_reveil());
             req.setAttribute("musique", utilisateur.getMusique());
         }
         else{
         	req.setAttribute("erreur", "Aucune addresse gmail liée avec cet appareil");
-        	req.setAttribute("id", reveil.getIdentifiant());
         }
-        
-        if(req.getParameter("maj") !=null && req.getParameter("maj").equals("true")){
-        	utilisateur.maj();
-        }
+
         this.getServletContext().getRequestDispatcher( "/Reveil.jsp" ).forward( req, resp );	
 	}
 }

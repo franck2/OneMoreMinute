@@ -61,7 +61,6 @@ public class Utilisateur {
 			String heure_dep = this.getTrajet().getHeure_depart();
 			if(heure_dep != null){
 				int temps_preparation = (this.laver + this.lever + this.geeker + this.manger + this.maquiller + this.divers);
-	
 				int h = temps_preparation/60;
 				int m = (temps_preparation-h*60);
 				 Calendar cc = new GregorianCalendar();
@@ -69,8 +68,10 @@ public class Utilisateur {
 	
 				 cc.add(cc.HOUR, -h);
 				 cc.add(cc.MINUTE, -m);
-				 System.out.println("je suis ici");
-				 date_reveil = formatter.format(cc.get(cc.DATE)) + "/"+formatter.format(cc.get(cc.MONTH) + 1) + "/" + cc.get(cc.YEAR) + " - " + formatter.format(cc.get(cc.HOUR)) + ":"+formatter.format(cc.get(cc.MINUTE));
+				 date_reveil = formatter.format(cc.get(cc.DATE)) + "/"+formatter.format(cc.get(cc.MONTH) + 1) + "/" + cc.get(cc.YEAR) + " - " + formatter.format(cc.get(cc.HOUR_OF_DAY)) + ":"+formatter.format(cc.get(cc.MINUTE));
+			}
+			else{
+				this.date_reveil = null;
 			}
 		}
 
@@ -78,7 +79,8 @@ public class Utilisateur {
 			return laver;
 		}
 
-		public void maj(){
+		public void maj(boolean auj){
+			this.calendrier.maj_date_reveil(auj);
 			this.getTrajet().requeteTrajet(this.getCalendrier().getDate_reveil());
 			this.setDate_reveil();
 		}
