@@ -82,7 +82,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                  <div class="container readme">
-                                	<p>Cette application permet....</p>
+                                	<p>Cette application est un reveil connecté</p>
                                 	
                                 	<p>Elle a été réalisée Par:
                                 	<ul>

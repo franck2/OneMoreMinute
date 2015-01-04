@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav navbar-nav-time ">
                     <li class="active"><a href="Accueil">Accueil</a></li>
                    <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>
-                    <li><a href="#">Readme</a></li>
+                   <li><a href="readme.jsp">Readme</a></li>
                  
                 </ul> <!-- navbar-nav -->
 
@@ -75,7 +75,7 @@
 		 				<div class="row">
 		 					<div class="col-sm-12">
 		 						<div class="panel panel-info">
-		 							<div class="panel-heading">Gestion du temps</div>
+		 							<div class="panel-heading">Gestion du temps(en minutes)</div>
 		 							<div class="panel-body">
 		 							<div class=row">
 		 								<div class="form-group col-sm-6">
