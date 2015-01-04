@@ -1,10 +1,13 @@
+
 $(function(){
 	$("#but").click(function(e){startAlarm(e);});
 	$("#body").click(function(e){stopAlarme(e);})
 	regleAlarme();
 });
 
-setTimeout(function(){window.location.reload();}, 1000*60);
+setTimeout(function(){
+	window.location = window.location.href.split("&")[0];
+	}, 1000*60*60);
 
 function startAlarm(e){
 	$("#myAudio")[0].play();

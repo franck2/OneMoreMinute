@@ -40,14 +40,12 @@ public class ServletReveil extends HttpServlet {
             	utilisateur.maj(true);
                 ofy().save().entity(utilisateur).now();
             }
-            req.setAttribute("maj", false);
             req.setAttribute("heure_reveil", utilisateur.getDate_reveil());
             req.setAttribute("musique", utilisateur.getMusique());
         }
         else{
-        	req.setAttribute("erreur", "Aucune addresse gmail liée avec cet appareil");
+        	req.setAttribute("erreur", "Aucune adresse gmail liée avec cet appareil");
         }
-
         this.getServletContext().getRequestDispatcher( "/Reveil.jsp" ).forward( req, resp );	
 	}
 }

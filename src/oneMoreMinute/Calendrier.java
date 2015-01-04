@@ -137,12 +137,10 @@ public class Calendrier {
 			  if(component.getProperty("TRANSP") == null || !component.getProperty("TRANSP").getValue().equals("TRANSPARENT")){
 				  
 				  String a_comparer = component.getProperty("DTSTART").getValue();
-				  System.out.println("dac    "+a_comparer+"  "+date_aujourdhui);
 
 				  if (a_comparer.compareTo(date_aujourdhui) > 0 && (evenement == null || a_comparer.compareTo(evenement.getProperty("DTSTART").getValue()) < 0)){
 
 					  date_a_comparer = dateFormat.parse(component.getProperty("DTSTART").getValue());
-					  System.out.println("dac    "+date_a_comparer);
 					  if((aujourdhui.getMonth() == date_a_comparer.getMonth() && aujourdhui.getDate() < date_a_comparer.getDate()) || (aujourdhui.getMonth() < date_a_comparer.getMonth() && aujourdhui.getYear() == date_a_comparer.getYear()) || aujourdhui.getYear() < date_a_comparer.getYear()){
 						  evenement = component;
 					  }	
