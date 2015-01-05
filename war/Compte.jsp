@@ -77,7 +77,7 @@
 		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Gestion du temps(en minutes)</div>
 		 							<div class="panel-body">
-		 							<div class=row">
+		 							<div class="row">
 		 								<div class="form-group col-sm-6">
       										<label class="col-sm-6 control-label">Temps pour se laver</label>
       										<div class="col-sm-6">
@@ -92,7 +92,7 @@
    										</div>
    									</div>
    										
-   									<div class=row">	
+   									<div class="row">	
    										<div class="form-group col-sm-6">
       										<label class="col-sm-6 control-label"> Temps pour geeker</label>
       										<div class="col-sm-6">
@@ -106,7 +106,7 @@
       										</div>
    										</div>
    									</div>
-   									<div class=row">
+   									<div class="row">
    										<div class="form-group col-sm-6">
       										<label class="col-sm-6 control-label">Temps pour se lever</label>
       										<div class="col-sm-6">
@@ -130,7 +130,7 @@
 		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Informations Trajet</div>
 		 							<div class="panel-body">
-		 							<div class=row">
+		 							<div class="row">
 		 							<div class="form-group col-sm-6">
       									<label class="col-sm-2 control-label">Départ</label>
       									<div class="col-sm-10">
@@ -149,11 +149,11 @@
          									<input type="text" id="arrivee" name="arrivee" value="${client.trajet.nom_arrivee}" class="form-control" >
       									</div>
    									
-   									<label class="msgerror">
+   									<div class="msgerror">
       									<c:if test="${message_arrivee!=null }">
     	        							<p>${message_arrivee}</p>
     									</c:if>
-   									</label>
+   									</div>
    									</div>
    								</div>
    								<div class="row">
@@ -263,7 +263,7 @@
 		 						<div class="panel panel-info">
 		 							<div class="panel-heading">Parametrage du Réveil</div>
 		 							<div class="panel-body">
-		 							<div class=row">
+		 							<div class="row">
 		 								<div class="form-group col-sm-6">
       										<label class="col-sm-5 control-label">ID du Réveil</label>
       										<div class="col-sm-7">
