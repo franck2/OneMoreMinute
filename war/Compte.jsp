@@ -197,128 +197,116 @@
 						 						 </div>
 		 									</div>
 		 									<div class="row">
-						 				 	<div class="form-group col-sm-6">
-				      								<label class="col-sm-5 control-label">Nom utilisateur</label>
-				      							<div class="col-sm-7">
-				         							<input type="text" id="user" name="user" value="${client.calendrier.user}" class="form-control" >
-				      							</div>
-				   							</div>
+						 				 		<div class="form-group col-sm-6">
+				      									<label class="col-sm-5 control-label">Nom utilisateur</label>
+				      									<div class="col-sm-7">
+				         									<input type="text" id="user" name="user" value="${client.calendrier.user}" class="form-control" >
+				      									</div>
+				   								</div>
 		 				 
-		 				 <div class="form-group col-sm-6">
-      							<label class="col-sm-5 control-label">Mot de passe</label>
-      							<div class="col-sm-7">
-         							<input type="password" id="mdp" name="mdp" value="${client.calendrier.mdp}" class="form-control" >
-      							</div>
-   						</div>
-		 				 
-		 				
-		 			</div>
-		 			
-		 			<div class="row">
-		 				 <div class="col-sm-12 msgerror">
-		 				
-		 				 	<c:if test="${message_edt!=null }">
-    	        				<p>${message_edt}</p>
-    						</c:if>
-		 				 </div>
-		 			</div>
+		 										 <div class="form-group col-sm-6">
+						      							<label class="col-sm-5 control-label">Mot de passe</label>
+						      							<div class="col-sm-7">
+						         							<input type="password" id="mdp" name="mdp" value="${client.calendrier.mdp}" class="form-control" >
+						      							</div>
+						   						</div>
+											</div>
+							 			
+		 									<div class="row">
+		 										<div class="col-sm-12 msgerror">
+								 				 	<c:if test="${message_edt!=null }">
+							    	        					<p>${message_edt}</p>
+							    						</c:if>
+							 					 </div>
+							 				</div>
 		 			
 		 			
-		 			</div>
+		 								</div>
                                    	
                                    
-                  </div>
-                 </div>
-                        <input type="hidden" id="itineraire" name="itineraire" value =""/>
-                        <input type="hidden" id="enristrer" name="enregistrer" value ="enregistrer"/>
+                 							</div>
+                						</div>
+					                        <input type="hidden" id="itineraire" name="itineraire" value =""/>
+					                        <input type="hidden" id="enristrer" name="enregistrer" value ="enregistrer"/>
                 
-                </div>
+                					</div>
                 
-                 <div class="row">
-                <div class="col-sm-12">
-		 						<div class="panel panel-info">
-		 							<div class="panel-heading">Parametrage du Réveil</div>
-		 							<div class="panel-body">
-		 							<div class="row">
-		 								<div class="form-group col-sm-6">
-      										<label class="col-sm-5 control-label">ID du Réveil</label>
-      										<div class="col-sm-7">
-         										<input type="text" id="reveil" name="reveil" class="form-control"  value=${client.reveil }>
-      										</div>
-   										</div>
-		 								<div class="form-group col-sm-6">
-      										<label class="col-sm-5 control-label">Votre Sonnerie</label>
-      										<div class="col-sm-7">
-         										<select id="musique" name="musique" class="form-control">
-													<option selected>dragon ball
-													<option>fire-emblem-theme
-													<option>Game_Of_Thrones
-													<option>gerudo
-													<option>hyrule
-													<option>Marche imperiale
-													<option>smash bros brawl
-													<option>star wars
-													<option>Stargate SG1
-													<option>tetris
-													<option>the legend of zelda
-													<option>The walking dead
-												</select>      
-      										</div>
-   										</div>
-   									</div>
-   										
-   															
+                					<div class="row">
+                						<div class="col-sm-12">
+		 							<div class="panel panel-info">
+		 								<div class="panel-heading">Parametrage du Réveil</div>
+		 								<div class="panel-body">
+		 									<div class="row">
+		 										<div class="form-group col-sm-6">
+      													<label class="col-sm-5 control-label">ID du Réveil</label>
+      													<div class="col-sm-7">
+         													<input type="text" id="reveil" name="reveil" class="form-control"  value=${client.reveil }>
+      													</div>
+   												</div>
+		 										<div class="form-group col-sm-6">
+      													<label class="col-sm-5 control-label">Votre Sonnerie</label>
+      													<div class="col-sm-7">
+         													<select id="musique" name="musique" class="form-control">
+															<option selected>dragon ball
+															<option>fire-emblem-theme
+															<option>Game_Of_Thrones
+															<option>gerudo
+															<option>hyrule
+															<option>Marche imperiale
+															<option>smash bros brawl
+															<option>star wars
+															<option>Stargate SG1
+															<option>tetris
+															<option>the legend of zelda
+															<option>The walking dead
+														</select>      
+      													</div>
+   												</div>
+   											</div>
+		 								</div>
 		 							</div>
 		 						</div>
-		 					</div>
-                
-                		</div>
-                
-                
-          
-                 <div class="row">
-		 			<div class="col-sm-12">
-		 				<button type="button" class="btn btn-info" onclick="javascript:calculate()">enregistrer</button>
-		 			</div>
-		 		</div>         
-               
-              </form>
-			</article>
-		</section>
+                       					</div>
+							<div class="row">
+					 			<div class="col-sm-12">
+					 				<button type="button" class="btn btn-info" onclick="javascript:calculate()">enregistrer</button>
+					 			</div>
+					 		</div>         
+			               
+			              		</form>
+					</article>
+				</section>
+			</div>
+		</div>
 	</div>
-	</div>
-</div>
 		
-<footer id="footer">
-        <div class="container">
-            <p>Web & Cloud 2014-2015</p>
-        </div>
-    </footer>		
-									
-
-
-    <script>
+	<footer id="footer">
+	        <div class="container">
+	            <p>Web & Cloud 2014-2015</p>
+	        </div>
+	</footer>		
+ 	<script>
 
     
-    window.onload = function(){ 
-    	jQuery('#${client.trajet.transport}').prop('checked', 'checked');
+   		window.onload = function(){ 
+		 	jQuery('#${client.trajet.transport}').prop('checked', 'checked');
 
-    	comboBox=document.getElementById("musique");
-        if (comboBox) {
-            for(var i=0;i<=comboBox.length-1;i=i+1) {
-                var text=comboBox.options[i].value;
-                if('${client.musique}'==text){
-                    comboBox.selectedIndex=i;
-                    break;
-                }
-            }
-        }
-	}
+		    	comboBox=document.getElementById("musique");
+		        if (comboBox) {
+		            for(var i=0;i<=comboBox.length-1;i=i+1) {
+		                var text=comboBox.options[i].value;
+		                if('${client.musique}'==text){
+		                    comboBox.selectedIndex=i;
+		                    break;
+		                }
+		            }
+		        }
+		}
 	
 	</script>
-	  <script src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&language=fr"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&language=fr"></script>
 	<script src="functions.js"></script>
-	 <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.js"></script>
 </body>
 </html>
