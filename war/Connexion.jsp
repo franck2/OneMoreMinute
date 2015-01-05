@@ -37,7 +37,7 @@
 	                	    <span class="icon-bar"></span>
 	                	    <span class="icon-bar"></span>
 	                	</button>
-	                	<a class="navbar-brand" href="#">One More <span>Time</span></a>
+	                	<a class="navbar-brand" href="#">One More <span>Minute</span></a>
 	            	</header> <!-- navbar-header -->
 
            		<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
