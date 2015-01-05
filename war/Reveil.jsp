@@ -4,21 +4,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-    <link href="css/heure.css" rel="stylesheet">
-    <link href="css/timeTo.css" rel="stylesheet">
-
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>One More Minute</title>
+    	<link href="css/heure.css" rel="stylesheet">
+    	<link href="css/timeTo.css" rel="stylesheet">
 </head>
 <body>
-<div id="clock" class="dark">
-    <div class="display">
-        <div class="weekdays"></div>
-        <div class="ampm"></div>
-        <div class="alarm"></div>
-        <div class="digits"></div>
-       <div class="cpt"> 
-            	<c:choose>
+	<div id="clock" class="dark">
+		<div class="display">
+        		<div class="weekdays"></div>
+        		<div class="ampm"></div>
+        		<div class="alarm"></div>
+        		<div class="digits"></div>
+       			<div class="cpt"> 
+            		 <c:choose>
 		<c:when test="${erreur!=null }">
 			<p>Entrer le code: <strong>${id }</strong></p>
 		</c:when>
