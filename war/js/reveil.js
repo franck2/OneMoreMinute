@@ -1,6 +1,6 @@
 
 $(function(){
-	$("#but").click(function(e){startAlarm(e);});
+	//$("#but").click(function(e){startAlarm(e);});
 	$("#body").click(function(e){stopAlarme(e);})
 	regleAlarme();
 });

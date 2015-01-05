@@ -253,8 +253,11 @@
 																<option>tetris
 																<option>the legend of zelda
 																<option>The walking dead
-															</select>      
-		      											</div>
+															</select>     
+															<input type="button" id="but" name="but" value="écouter/arrêter" onclick="StartOrStop()"> 
+
+															<audio id="myAudio" src="" loop></audio>
+														</div>
 		   											</div>
 		   										</div>
 				 							</div>
@@ -277,7 +280,9 @@
 		<div class="container">
 	    	<p>Web & Cloud 2014-2015</p>
 	    </div>
-	</footer>		
+	</footer>
+		<script src="js/jquery.js"></script>
+			
  	<script>
 
     
@@ -295,11 +300,21 @@
 		            }
 		        }
 		}
-	
+   
+   		
+   		function StartOrStop() {
+   		    var audie = document.getElementById("myAudio");
+   		    audie.src = "musiques/"+document.getElementById("musique").value+".ogg";
+   		    if (audie.paused == false)
+   		        audie.stop();
+   		    else
+   		        audie.play();
+   		}
+
+   		
 	</script>
 	<script src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&language=fr"></script>
 	<script src="functions.js"></script>
-	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>
 </html>
