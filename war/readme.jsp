@@ -43,29 +43,26 @@
            	<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
                 <ul class="nav navbar-nav navbar-nav-time ">
                 
-                <% if (userService.getCurrentUser() != null) { %>
-							 <li ><a href="Accueil.jsp">Accueil</a></li>
-							  <li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>>
-                    		 <li><a href="readme.jsp">Readme</a></li>	
-				<% }else { %>
-                			
+                	<% if (userService.getCurrentUser() != null) { %>
+						<li ><a href="Accueil.jsp">Accueil</a></li>
+						<li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>>
+	                    <li><a href="readme.jsp">Readme</a></li>	
+					<% }else { %>
+	                			
 						<li><a href="https://github.com/franck2/OneMoreMinute">Github</a></li>>
-                    	<li><a href="readme.jsp">Readme</a></li>
-                    	<li ><a href="<%= userService.createLoginURL("/Accueil.jsp") %>">Sign In</a></li>	
-                
-                
-                 <% } %> 
+	                    <li><a href="readme.jsp">Readme</a></li>
+	                    <li ><a href="<%= userService.createLoginURL("/Accueil.jsp") %>">Sign In</a></li>	
+	
+	                 <% } %> 
                     
                 </ul> <!-- navbar-nav -->
 
-                 <div class="nav navbar-nav navbar-right">
+                <div class="nav navbar-nav navbar-right">
                  	
-                 		<% if (userService.getCurrentUser() != null) { %>
-								<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
-								<span></span><a href="<%= userService.createLogoutURL("/") %>">Déconnexion</a></span>
-						<% } %>
-						
-                 		
+                	<% if (userService.getCurrentUser() != null) { %>
+						<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
+						<span></span><a href="<%= userService.createLogoutURL("/") %>">Déconnexion</a></span>
+					<% } %>	
                 </div>
             </div><!--navbar-collapse -->
         </div> <!--container -->
@@ -75,37 +72,34 @@
     <div class="wrap-home-header2">
         <div class="container">
             <div class="lcd">
-               
-                <section id="affichehome" >
-                  
-                        <article class="item active">
-                            <div class="row">
-                                <div class="col-md-12">
-                                 <div class="container readme">
+				<section id="affichehome" >
+					<article class="item active">
+                    	<div class="row">
+                        	<div class="col-md-12">
+                            	<div class="container readme">
                                 	<p>Cette application est un reveil connecté</p>
                                 	
                                 	<p>Elle a été réalisée Par:
-                                	<ul>
-                                	<li>Franck Boncler</li>
-                                	<li>Damien Mausson</li>
-                                	<li>Roland Houssou</li>
-                                	</ul>
+                                		<ul>
+                                		<li>Franck Boncler</li>
+                                		<li>Damien Mausson</li>
+                                		<li>Roland Houssou</li>
+                                		</ul>
                                 	
                                 	</p>
                                 
-                           </div>
-                                </div>
+                           		</div>
                                 
-                            </div>
+                             </div>
+                                
+						</div>
                              
-                        </article>
+					</article>
                    
                 </section> <!-- affiche-home -->
             </div> <!-- lcd -->
         </div> <!-- container -->
     </div> <!-- wrap-header-home -->
-
- 
 
     <footer id="footer">
         <div class="container">

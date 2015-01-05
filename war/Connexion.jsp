@@ -31,53 +31,53 @@
 	<!-- navbar navbar-time -->
 	<nav class="navbar navbar-time navbar-fixed-top">
 		<div class="container">
-	        	<header class="navbar-header">
-	                	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	                	    <span class="icon-bar"></span>
-	                	    <span class="icon-bar"></span>
-	                	    <span class="icon-bar"></span>
-	                	</button>
-	                	<a class="navbar-brand" href="#">One More <span>Minute</span></a>
-	            	</header> <!-- navbar-header -->
+	        <header class="navbar-header">
+	        	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	            	<span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+				</button>
+	            <a class="navbar-brand" href="#">One More <span>Minute</span></a>
+	            </header> <!-- navbar-header -->
 
-           		<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
-	                	<ul class="nav navbar-nav navbar-nav-time ">
-					<li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>
-	                		<li><a href="readme.jsp">Readme</a></li>
-				</ul> <!-- navbar-nav -->
-			</div><!--navbar-collapse -->
-        	</div> <!--container -->
-	 </nav> <!-- navbar-time -->
+	           		<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+		            	<ul class="nav navbar-nav navbar-nav-time ">
+							<li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>
+		                	<li><a href="readme.jsp">Readme</a></li>
+						</ul> <!-- navbar-nav -->
+					</div><!--navbar-collapse -->
+        </div> <!--container -->
+	</nav> <!-- navbar-time -->
 
-    	<!-- Carousel Home -->
-    	<div class="wrap-home-header2">
-        	<div class="container">
-            		<div class="lcd">
+	<!-- Carousel Home -->
+	<div class="wrap-home-header2">
+		<div class="container">
+			<div class="lcd">
 				<section id="affichehome" >
 					<article class="item active">
-                            			<div class="row">
-                                			<div class="col-md-12">
+                		<div class="row">
+                    		<div class="col-md-12">
 								<div class="container">
 									<div class=" col-sm-offset-3">
 										<a href="<%= userService.createLoginURL("/Accueil") %>"  class=" btn btn-warning btn-lg btn-bolck col-md-8">Sign In</a>
 									</div>
 								</div>
-                                			</div>
+                        	</div>
 						</div>
-                        		</article>
+                	</article>
 				</section> <!-- affiche-home -->
-            		</div> <!-- lcd -->
-        	</div> <!-- container -->
-    	</div> <!-- wrap-header-home -->
+            </div> <!-- lcd -->
+        </div> <!-- container -->
+    </div> <!-- wrap-header-home -->
 
-    	<footer id="footer">
-        	<div class="container">
-        	    <p>Web & Cloud 2014-2015</p>
-        	</div>
-    	</footer>
+    <footer id="footer">
+       	<div class="container">
+       	    <p>Web & Cloud 2014-2015</p>
+       	</div>
+    </footer>
 
-     	<script src="js/jquery.js"></script>
-    	<script src="js/bootstrap.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
 
 </body>
 </html>

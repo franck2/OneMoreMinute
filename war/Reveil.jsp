@@ -12,44 +12,39 @@
 <body>
 	<div id="clock" class="dark">
 		<div class="display">
-        		<div class="weekdays"></div>
-        		<div class="ampm"></div>
-        		<div class="alarm"></div>
-        		<div class="digits"></div>
-       			<div class="cpt"> 
-            		 <c:choose>
-		<c:when test="${erreur!=null }">
-			<p>Entrer le code: <strong>${id }</strong></p>
-		</c:when>
-		<c:when test="${heure_reveil!=null }">
-			<p>Prochain réveil: <strong>${heure_reveil}</strong></p>
-		</c:when>
-		<c:otherwise>
-			<p>Grasse matinée jusqu'a nouvel ordre !</p>
-		</c:otherwise>
-    </c:choose>
-    <div id="countdown" align="center"></div>
-    </div>
-    </div>
+        	<div class="weekdays"></div>
+        	<div class="ampm"></div>
+        	<div class="alarm"></div>
+        	<div class="digits"></div>
+       		<div class="cpt"> 
+       			<c:choose>
+					<c:when test="${erreur!=null }">
+						<p>Entrer le code: <strong>${id }</strong></p>
+					</c:when>
+					<c:when test="${heure_reveil!=null }">
+						<p>Prochain réveil: <strong>${heure_reveil}</strong></p>
+					</c:when>
+					<c:otherwise>
+						<p>Grasse matinée jusqu'a nouvel ordre !</p>
+					</c:otherwise>
+    			</c:choose>
+    			<div id="countdown" align="center"></div>
+    		</div>
+    	</div>
+	</div>
 
-    
-</div>
+	<div class="zero">
+	    <span class="d1"></span>
+	    <span class="d2"></span>
+	    <span class="d3"></span>
+	    <span class="d4"></span>
+	    <span class="d5"></span>
+	    <span class="d6"></span>
+	    <span class="d7"></span>
+	</div>
 
-<div class="zero">
-    <span class="d1"></span>
-    <span class="d2"></span>
-    <span class="d3"></span>
-    <span class="d4"></span>
-    <span class="d5"></span>
-    <span class="d6"></span>
-    <span class="d7"></span>
-</div>
-
-
-
-<audio id="myAudio" src="musiques/${musique }.ogg" loop></audio>
-
-            <input type="hidden" id="heure_reveil" name="heure_reveil" value ="${heure_reveil }"/>
+	<audio id="myAudio" src="musiques/${musique }.ogg" loop></audio>
+	<input type="hidden" id="heure_reveil" name="heure_reveil" value ="${heure_reveil }"/>
     
 	<form method="get" name="form" action="ServletReveil">
 		<input type="hidden" id="id" name="id" value='${id }'>
