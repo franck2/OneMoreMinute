@@ -2,7 +2,8 @@
 <cronentries>
 	<cron>
 		<url>/Maj</url>
-		<description>Met à jour la date du reveil</description>
-		<schedule>every 1 minutes</schedule>
+		<description>Met à jour la date du reveil tous les jours à une heure</description>
+		<schedule>every day 01:00</schedule>
+		<timezone>Europe/Paris</timezone>
 	</cron>
 </cronentries>

@@ -47,7 +47,7 @@
 				</ul> <!-- navbar-nav -->
 				<div class="nav navbar-nav navbar-right">
                		<% if (userService.getCurrentUser() != null) { %>
-						<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span></a>
+						<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span>
 						<span></span><a href="<%= userService.createLogoutURL("/") %>">Déconnexion</a></span>
 					<% } %>
 				</div>

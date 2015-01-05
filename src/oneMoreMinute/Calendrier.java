@@ -222,14 +222,14 @@ public class Calendrier {
  					   heure = heure_de_debut(c, true);
  					   message_edt = "Ajout de l'emplois du temps OK";
  					   this.url = url;
- 					   message_edt = "EDT ajout� avec success !";
+ 					   message_edt = "EDT ajouté avec success !";
  				   }
  				   else{
- 					   message_edt = "Une erreur est survenue pendant l'ajout de votre edt, v�rifiez l'url et vos identifiants";
+ 					   message_edt = "Une erreur est survenue pendant l'ajout de votre edt, vérifiez l'url et vos identifiants";
  				   }
  			   }
  			   catch (ParseException e) {
- 				   message_edt = "Une erreur est survenue pendant l'ajout de votre edt, v�rifiez l'url et vos identifiants";
+ 				   message_edt = "Une erreur est survenue pendant l'ajout de votre edt, vérifiez l'url et vos identifiants";
  			   }
  		   }
  		   
