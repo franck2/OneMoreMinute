@@ -256,7 +256,7 @@
 															</select>     
 															<input type="button" id="but" name="but" value="écouter/arrêter" onclick="StartOrStop()"> 
 
-															<audio id="myAudio" src="" loop></audio>
+															<audio id="myAudio" src="" controls loop></audio>
 														</div>
 		   											</div>
 		   										</div>
@@ -288,7 +288,8 @@
     
    		window.onload = function(){ 
 		 	jQuery('#${client.trajet.transport}').prop('checked', 'checked');
-
+   		   	 	var audie = document.getElementById("myAudio");
+   		    	audie.src = "musiques/"+document.getElementById("musique").value+".ogg";
 		    	comboBox=document.getElementById("musique");
 		        if (comboBox) {
 		            for(var i=0;i<=comboBox.length-1;i=i+1) {
@@ -305,7 +306,7 @@
    		function StartOrStop() {
    		    var audie = document.getElementById("myAudio");
    		    audie.src = "musiques/"+document.getElementById("musique").value+".ogg";
-   		    if (audie.paused == false)
+   		    if (audie.stoped == false)
    		        audie.stop();
    		    else
    		        audie.play();
