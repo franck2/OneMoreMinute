@@ -67,22 +67,22 @@
 									<c:when test="${client.trajet.detail_Trajet==null }">
 										<p>Aucun itinéraire de calculé, choisir une adresse de départ et une adresse d'arrivée pour avoir un itinéraire</p>
 									</c:when>
-								<c:otherwise>
-									<div class="panel panel-info ">
-										<div class="panel-heading">
-		  									<div class="row">
-		  										<div class="col-md-6"><p>Départ: ${client.trajet.heure_depart }</p></div>
-		                        				<div class="col-md-6"><p>Arrivée: ${client.trajet.heure_arrivee }</p></div>
+									<c:when test="${client.calendrier.date_reveil==null }"> 
+										<p>Aucun calendrier de choisi, en choisir un pour avoir un reveil</p>
+									</c:when>
+									<c:otherwise>
+										<div class="panel panel-info ">
+											<div class="panel-heading">
+			  									<div class="row">
+			  										<div class="col-md-6"><p>Départ: ${client.trajet.heure_depart }</p></div>
+			                        				<div class="col-md-6"><p>Arrivée: ${client.trajet.heure_arrivee }</p></div>
+												</div>
+											</div>
+											<div class="panel-body itineraire">
+												<div class="trajet">${client.trajet.detail_Trajet}</div>
 											</div>
 										</div>
-										<div class="panel-body itineraire">
-											<div class="trajet">${client.trajet.detail_Trajet}</div>
-											<c:if test="${client.calendrier.date_reveil==null }">
-												<p>Aucun calendrier de choisi, en choisir un pour avoir un reveil</p>
-											</c:if>
-										</div>
-									</div>
-								</c:otherwise>
+									</c:otherwise>
 								</c:choose>
                 			</div>
 						</div>

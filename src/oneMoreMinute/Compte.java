@@ -128,6 +128,7 @@ public class Compte  extends HttpServlet {
 				if (choix_depart && choix_arrivee && utilisateur.getCalendrier().getDate_reveil() != null){
 					String message_trajet = utilisateur.getTrajet().requeteTrajet(utilisateur.getCalendrier().getDate_reveil());
 					req.setAttribute("message_trajet", message_trajet);
+					utilisateur.maj(true);
 				}
 			}
 			else{
