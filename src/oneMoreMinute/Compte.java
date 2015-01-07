@@ -134,6 +134,7 @@ public class Compte  extends HttpServlet {
 			else{
 				String message_trajet = utilisateur.getTrajet().enregistrer_google_trajet(req.getParameter("transport"), req.getParameter("depart"), req.getParameter("arrivee"), req.getParameter("itineraire"), utilisateur.getCalendrier().getDate_reveil());
 				req.setAttribute("message_trajet", message_trajet);
+				utilisateur.maj(true);
 			}
        }
 
