@@ -200,16 +200,18 @@ public class Calendrier {
 	public String modifier_edt(String login, String mdp, String url){
 		String message_edt = "";
 		String heure = null;
-		
+		boolean modif = false;
 		if(this.user == null || !login.equals(this.user)){
 			this.user = login;
+			modif = true;
 		}
 		
  	   if(this.mdp == null || !mdp.equals(this.mdp)){
  		   this.mdp = mdp;
+ 		   modif = true;
  	   }
  	   
- 	   if(url == null || !url.equals(this.url)){
+ 	   if(url == null || !url.equals(this.url) || modif){
  		   
  		   this.url = url;
  		   if(!url.endsWith("ics")){
