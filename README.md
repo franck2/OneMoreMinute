@@ -31,9 +31,9 @@ III - Configuration du Raspberry Pi (réveil)
 ```bash
 #!/bin/bash
   
-  firefox -new-window "http://one-more-minute.appspot.com/ServletReveil?\`ifconfig eth0 | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'\`" &
-  sleep 2
-  xdotool key "F11"
+firefox -new-window "http://one-more-minute.appspot.com/ServletReveil?\`ifconfig eth0 | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'\`" &
+sleep 2
+xdotool key "F11"
 ```
 
 Le reveil reloadera toutes les heures, il sonnera tant que l'utilisateur n'aura pas cliqué sur l'écran tactile. Une vérification de l'heure du reveil et de l'itinéraire est faite tous les matins à 1h00 du matin.
