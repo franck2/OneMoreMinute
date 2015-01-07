@@ -118,9 +118,10 @@ public class Calendrier {
 		Date date = new Date();
 		Component evenement = null;
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
-		dateFormat.setTimeZone(TimeZone.getDefault());
 		String date_aujourdhui = dateFormat.format(date);
+				
 
 		/* aujourdhui contient la date du jour courant, date_a_comparer contient une date qui est superieur a
 		 * aujourdhui. Elle contiendra le premier evenement apres la date aujourdhui.
@@ -135,9 +136,8 @@ public class Calendrier {
 			  Component component = (Component) i.next();
 			  
 			  if(component.getProperty("TRANSP") == null || !component.getProperty("TRANSP").getValue().equals("TRANSPARENT")){
-				  
-				  String a_comparer = component.getProperty("DTSTART").getValue();
 
+				  String a_comparer = component.getProperty("DTSTART").getValue();
 				  if (a_comparer.compareTo(date_aujourdhui) > 0 && (evenement == null || a_comparer.compareTo(evenement.getProperty("DTSTART").getValue()) < 0)){
 
 					  date_a_comparer = dateFormat.parse(component.getProperty("DTSTART").getValue());
@@ -163,11 +163,9 @@ public class Calendrier {
 			NumberFormat formater = new DecimalFormat("00");
 
 			String date = prochain_evenement(c, auj).getProperty("DTSTART").getValue();
-	
 			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
 			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+1:00"));
 			Date prochaine_date = dateFormat.parse(date);
-	
 			java.util.Calendar calendar = GregorianCalendar.getInstance();
 			calendar.setTime(prochaine_date);
 			date = calendar.get(calendar.YEAR)+"-"+formater.format(calendar.get(calendar.MONTH)+1)+"-"+formater.format(calendar.get(calendar.DATE));
@@ -188,6 +186,7 @@ public class Calendrier {
 					heure = null;
 				}
 			}
+
 		 	if(heure == null || !heure.equals(this.date_reveil)){
 		 		this.date_reveil = heure;
 		 	}

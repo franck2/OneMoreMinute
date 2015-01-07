@@ -240,7 +240,7 @@
 				 									<div class="form-group col-sm-6">
 		      											<label class="col-sm-5 control-label">Votre Sonnerie</label>
 		      											<div class="col-sm-7">
-		         											<select id="musique" name="musique" class="form-control">
+		         											<select id="musique" name="musique" onclick="changer()" class="form-control">
 																<option selected>dragon ball
 																<option>fire-emblem-theme
 																<option>Game_Of_Thrones
@@ -254,9 +254,7 @@
 																<option>the legend of zelda
 																<option>The walking dead
 															</select>     
-															<input type="button" id="but" name="but" value="écouter/arrêter" onclick="StartOrStop()"> 
-
-															<audio id="myAudio" src="" controls loop></audio>
+															<audio id="myAudio" src="" style="width: 150px; display: block;" controls loop></audio>
 														</div>
 		   											</div>
 		   										</div>
@@ -288,8 +286,7 @@
     
    		window.onload = function(){ 
 		 	jQuery('#${client.trajet.transport}').prop('checked', 'checked');
-   		   	 	var audie = document.getElementById("myAudio");
-   		    	audie.src = "musiques/"+document.getElementById("musique").value+".ogg";
+
 		    	comboBox=document.getElementById("musique");
 		        if (comboBox) {
 		            for(var i=0;i<=comboBox.length-1;i=i+1) {
@@ -300,16 +297,14 @@
 		                }
 		            }
 		        }
+   		   	 	var audie = document.getElementById("myAudio");
+   		    	audie.src = "musiques/"+document.getElementById("musique").value+".ogg";
 		}
    
    		
-   		function StartOrStop() {
+   		function changer() {
    		    var audie = document.getElementById("myAudio");
    		    audie.src = "musiques/"+document.getElementById("musique").value+".ogg";
-   		    if (audie.stoped == false)
-   		        audie.stop();
-   		    else
-   		        audie.play();
    		}
 
    		

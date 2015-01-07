@@ -43,12 +43,28 @@ public class Compte  extends HttpServlet {
 		        * Si l'utilisateur a ajoute un reveil et qu'il existe, alors on ajoute le reveil et on ajoute l'adresse mail
 		        * de l'utilisateur eu reveil.
 		        */
-		       if(reveil !=null){
+		       if(reveil !=null && utilisateur.getReveil() != reveil.getIdentifiant()){
 		        	reveil.setUtilisateur(utilisateur.getUtilisateur());
+		        	if(utilisateur.getReveil()!=null){
+		 		       Reveil temp = ofy().load().type(Reveil.class).id(utilisateur.getReveil()).now();
+		 		       temp.setUtilisateur(null);
+			           ofy().save().entity(temp).now();
+
+		        	}
+		        	
 		        	utilisateur.setReveil(req.getParameter("reveil"));
 		            ofy().save().entity(reveil).now();
-
 		        }
+			}
+			else{
+			    Reveil reveil = ofy().load().type(Reveil.class).id(utilisateur.getReveil()).now();
+
+				if(utilisateur.getReveil() != null){
+					utilisateur.setReveil(null);
+					reveil.setUtilisateur(null);
+		            ofy().save().entity(reveil).now();
+
+				}
 			}
 			
     	   //Modification de l'emplois du temps

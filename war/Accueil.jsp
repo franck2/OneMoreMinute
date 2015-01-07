@@ -42,13 +42,13 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
             	<ul class="nav navbar-nav navbar-nav-time ">
                 	<li class="active"><a href="Accueil">Accueil</a></li>
-                	<li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>>
+                	<li><a href="https://github.com/franck2/OneMoreMinute" target="_blank">Github</a></li>
                     <li><a href="readme.jsp">Readme</a></li>
 				</ul> <!-- navbar-nav -->
 				<div class="nav navbar-nav navbar-right">
                		<% if (userService.getCurrentUser() != null) { %>
 						<span class="user"> Bienvenue! <%= userService.getCurrentUser().getNickname() %></span>
-						<span></span><a href="<%= userService.createLogoutURL("/") %>">Déconnexion</a></span>
+						<span><a href="<%= userService.createLogoutURL("/") %>">Déconnexion</a></span>
 					<% } %>
 				</div>
         	</div><!--navbar-collapse -->
