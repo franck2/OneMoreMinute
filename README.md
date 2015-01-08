@@ -31,7 +31,7 @@ III - Configuration du Raspberry Pi (réveil)
 ```bash
 #!/bin/bash
   
-firefox -new-window "http://one-more-minute.appspot.com/ServletReveil?\`ifconfig eth0 | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'\`" &
+firefox -new-window "http://one-more-minute.appspot.com/ServletReveil?id=\`ifconfig eth0 | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'\`" &
 sleep 2
 xdotool key "F11"
 ```
